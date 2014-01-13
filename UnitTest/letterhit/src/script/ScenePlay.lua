@@ -195,9 +195,14 @@ end
 
 function ScenePlay:onEnter()
 
+	print("play")
 	share:textureMgr():unloadAll()
 	share:sprite2DDataMgr():unloadAll()
 
+end
+function ScenePlay:onExit()
+	share:textureMgr():unloadAll()
+	share:sprite2DDataMgr():unloadAll()
 end
 
 

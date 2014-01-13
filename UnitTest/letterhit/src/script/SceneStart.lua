@@ -121,11 +121,11 @@ end
 
 
 function StartLayer:StartUpdate(dt)
-	print (dt)
 	self:update(dt) 
 	local total_frame=self.back_ground:getTotalFrame()
 	local cur_frame=self.back_ground:getCurFrame()
 
+	print(total_frame,cur_frame)
 	if total_frame -1 == cur_frame then 
 		self.play:setVisible(true)
 		self.quit:setVisible(true)
@@ -158,12 +158,6 @@ end
 
 function StartLayer:Init()
 	local back_ground=Sprite2D:create("sprites/start.fst")
-	back_ground.data={
-		onUpdate=function(self,dt)
-			self:update(dt/1000)
-
-		end
-	}
 
 	local play=Quad2D:create("textures/play.png",122,43)
 	play:setPosition(480,240)
@@ -270,12 +264,15 @@ function SceneStart:Init()
 end
 
 function  SceneStart:onEnter()
+
 	self.layer:onEnter();
+
 	collectgarbage("collect")
 	print("collect gargage")
 
 	share:textureMgr():unloadAll()
 	share:sprite2DDataMgr():unloadAll()
+
 end
 
 
