@@ -4,6 +4,18 @@ sprite:playAnimation();
 sprite:setPosition(480,320)
 --sprite:setColor(Color(255,0,0));
 sprite:setScale(0.5,0.5,1)
+
+
+sprite.data={
+	onUpdate=function(self,dt)
+		--self:update(dt)
+		self:updateAction(dt) 
+		self:updateAnimation(dt)
+
+	end
+}
+
+
 scene=Scene:create()
 
 layer=Layer2D:create()

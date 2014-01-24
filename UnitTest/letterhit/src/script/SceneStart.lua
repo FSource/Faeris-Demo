@@ -1,10 +1,17 @@
--- quit layer 
 
+QuitLayer=f_newclass()
 
-local function QuitLayer_New()
-	local font=FontTTF:create("simsun.ttc",80)
+function QuitLayer:New()
 	local layer=Layer2D:create()
-	layer:setViewArea(0,0,960,640)
+	f_extends(layer,self)
+	layer:Init()
+	return layer
+end
+
+function QuitLayer:Init()
+
+	local font=FontTTF:create("simsun.ttc",80)
+	self:setViewArea(0,0,960,640)
 
 	local msg= LabelTTF:create("Are You Sure To Quit?",font);
 	local quit=LabelTTF:create("Quit",font);
@@ -24,137 +31,133 @@ local function QuitLayer_New()
 	cancel:setColor(Color.RED)
 
 
-	layer:add(msg)
-	layer:add(quit)
-	layer:add(cancel)
-	layer.data={
-		quit=quit,
-		cancel=cancel,
-		onTouchBegin=function(self,x,y)
-			local data=self.data
-			local x,y=self:toLayerCoord(x,y)
-			if data.quit:hit2D(x,y) then 
-				share:scheduler():stop()
-			elseif data.cancel:hit2D(x,y) then 
-				local scene=share:director():current()
-				scene:pop()
-				scene:pop()
-			end
-			return true
-		end
-	}
-	layer:setTouchEnabled(true);
-	return layer;
+	self:add(msg)
+	self:add(quit)
+	self:add(cancel)
+
+	self.quit=quit 
+	self.cancel=cancel
+	self:setTouchEnabled(true);
 end
 
+function QuitLayer:onTouchBegin(x,y) 
+
+	local x,y=self:toLayerCoord(x,y)
+	if self.quit:hit2D(x,y) then 
+		share:scheduler():stop()
+		font:decRef()
+		font2:decRef()
+
+	elseif self.cancel:hit2D(x,y) then 
+		local scene=share:director():current()
+		scene:pop()
+		scene:pop()
+	end
+	return true
+end
+
+
+
+StartLayer=f_newclass()
 
 -- main layer 
-local function StartLayer_SelectUpdate(self,dt) 
-	self:update(dt)  --call layer update 
-end
-
-
-local function StartLayer_SelectTouchBegin(self,x,y)
-	print "select touch "
-	local x,y=self:toLayerCoord(x,y)
-	local data=self.data
-	local focus=nil
-	if data.play:hit2D(x,y) then
-		focus=data.play
-	elseif data.quit:hit2D(x,y) then 
-		focus=data.quit
-	elseif data.setting:hit2D(x,y) then 
-		focus=data.setting 
-	end
-	self:setFocus(focus)
-
-	return true
-end
-
-
-local function StartLayer_SelectTouchEnd(self,x,y)
-	local x,y=self:toLayerCoord(x,y)
-	local data=self.data
-	if not data.focus then 
-		return true
-	end
-	local focus=data.focus
-	self:setFocus(nil)
-
-	local scene = share:director():current()
-	if focus == data.play then 
-		data.nextScene=ScenePlay_New() 
-		local fade_layer=ColorLayer:create(Color(0,0,0,0))
-		data.fadeLayer=fade_layer
-		data.fadeAlpha=0
-		scene:push(fade_layer)
-		util.changeCallBack(self,StartLayer_mExitCallBack)
-
-	elseif  focus ==data.setting then 
-		data.nextScene=SceneAbout_New()
-		local fade_layer=ColorLayer:create(Color(0,0,0,0))
-		data.fadeLayer=fade_layer
-		data.fadeAlpha=0
-		scene:push(fade_layer)
-
-		util.changeCallBack(self,StartLayer_mExitCallBack)
-	elseif focus == data.quit then 
-		local facd_layer=ColorLayer:create(Color(55,55,55,200))
-		scene:push(facd_layer)
-		scene:push(QuitLayer_New())
-	end
-	return true
-end
-
-
-
-
-
-local function StartLayer_StartUpdate(self,dt)
-	print (dt)
-	self:update(dt) 
-	local total_frame=self.data.back_ground:getTotalFrame()
-	local cur_frame=self.data.back_ground:getCurFrame()
-
-	if total_frame -1 == cur_frame then 
-		self.data.play:setVisible(true)
-		self.data.quit:setVisible(true)
-		self.data.setting:setVisible(true)
-		util.changeCallBack(self,StartLayer_mSelectCallBack)
-	end
-end
-
-
-local function StartLayer_UpdateSelect(self,dt)
+function StartLayer:SelectUpdate(dt) 
 	self:update(dt)
 end
 
-local function StartLayer_ExitUpdate(self,dt)
-	local data=self.data
-	data.fadeAlpha=data.fadeAlpha+dt/1000*255
-	if data.fadeAlpha >255 then 
-		data.fadeAlpha=nil
-		data.fadeLayer=nil
+
+function StartLayer:SelectTouchBegin(x,y)
+	print "select touch "
+	local x,y=self:toLayerCoord(x,y)
+	local focus=nil
+	if self.play:hit2D(x,y) then
+		focus=self.play
+	elseif self.quit:hit2D(x,y) then 
+		focus=self.quit
+	elseif self.setting:hit2D(x,y) then 
+		focus=self.setting 
+	end
+	self:setFocus(focus)
+	return true
+end
+
+
+function StartLayer:SelectTouchEnd(x,y)
+	local x,y=self:toLayerCoord(x,y)
+	if not self.focus then 
+		return true
+	end
+	local focus=self.focus
+	self:setFocus(nil)
+
+	local scene = share:director():current()
+	if focus == self.play then 
+		self.nextScene=ScenePlay:New() 
+		local fade_layer=ColorLayer:create(Color(0,0,0,0))
+		self.fadeLayer=fade_layer
+		self.fadeAlpha=0
+		scene:push(fade_layer)
+
+		util.changeCallBack(self,self.mExitCallBack)
+
+	elseif  focus ==self.setting then 
+		self.nextScene=SceneAbout:New()
+		local fade_layer=ColorLayer:create(Color(0,0,0,0))
+		self.fadeLayer=fade_layer
+		self.fadeAlpha=0
+		scene:push(fade_layer)
+
+		util.changeCallBack(self,self.mExitCallBack)
+	elseif focus == self.quit then 
+		local facd_layer=ColorLayer:create(Color(55,55,55,200))
+		scene:push(facd_layer)
+		scene:push(QuitLayer:New())
+	end
+	return true
+end
+
+
+
+
+
+function StartLayer:StartUpdate(dt)
+	self:update(dt) 
+	local total_frame=self.back_ground:getTotalFrame()
+	local cur_frame=self.back_ground:getCurFrame()
+
+	print(total_frame,cur_frame)
+	if total_frame -1 == cur_frame then 
+		self.play:setVisible(true)
+		self.quit:setVisible(true)
+		self.setting:setVisible(true)
+		util.changeCallBack(self,self.mSelectCallBack)
+	end
+end
+
+
+function StartLayer:UpdateSelect(dt)
+	self:update(dt)
+end
+
+function StartLayer:ExitUpdate(dt)
+	self.fadeAlpha=self.fadeAlpha+dt*255
+	if self.fadeAlpha >255 then 
+		self.fadeAlpha=nil
+		self.fadeLayer=nil
 		local director=share:director()
 		local scene=director:current()
 		scene:pop()
 		director:push()
-		director:run(self.data.nextScene)
+		director:run(self.nextScene)
 	else 
-		data.fadeLayer:setColor(Color(0,0,0,data.fadeAlpha))
+		self.fadeLayer:setColor(Color(0,0,0,self.fadeAlpha))
 	end
 end
 
 
 
-local function StartLayer_CreateData()
+function StartLayer:Init()
 	local back_ground=Sprite2D:create("sprites/start.fst")
-	back_ground.data={
-		onUpdate=function(self,dt)
-			self:update(dt/1000)
-
-		end
-	}
 
 	local play=Quad2D:create("textures/play.png",122,43)
 	play:setPosition(480,240)
@@ -164,83 +167,78 @@ local function StartLayer_CreateData()
 	local setting=Quad2D:create("textures/settings.png",270,46)
 	setting:setPosition(480,120)
 
-	local data={
-		play=play,
-		back_ground=back_ground,
-		quit=quit,
-		setting=setting 
-	}
-	return data
+	self.play=play
+	self.back_ground=back_ground
+	self.quit=quit
+	self.setting=setting 
+
+	self.onEnter=self.OnEnter
+	self.onExit=self.OnExit
+	self.setFocus=self.SetFocus
+	self:setViewArea(0,0,960,640)
+	self:setTouchEnabled(true)
+
+	self:add(self.back_ground)
+	self:add(self.play)
+	self:add(self.quit)
+	self:add(self.setting)
+
 end
 
 
-local function StartLayer_OnEnter(self) 
-	local data=self.data
-	data.focus=nil
-	data.nextScene=nil
-	data.play:setVisible(false)
-	data.quit:setVisible(false)
-	data.setting:setVisible(false)
-	data.back_ground:setAnimation("default")
-	data.back_ground:startAnimation(Sprite2D.ANIM_END)
-
-	util.changeCallBack(self,StartLayer_mStartCallBack)
+function StartLayer:OnEnter() 
+	self.focus=nil
+	self.nextScene=nil
+	self.play:setVisible(false)
+	self.quit:setVisible(false)
+	self.setting:setVisible(false)
+	self.back_ground:setAnimation("default")
+	self.back_ground:startAnimation(Sprite2D.ANIM_END)
+	util.changeCallBack(self,self.mStartCallBack)
 end
 
 
-local function StartLayer_SetFocus(self,ob)
-	local data=self.data
-	if data.focus then 
-		data.focus:setScale(1,1,1)
+function StartLayer:SetFocus(ob)
+	if self.focus then 
+		self.focus:setScale(1,1,1)
 	end
 	if ob then 
 		ob:setScale(2,2,1)
 	end
-	data.focus=ob
+	self.focus=ob
 end
 
 
 
-local function StartLayer_New() 
+function StartLayer:New() 
 	local layer=Layer2D:create()
-	layer.data=StartLayer_CreateData()
-	layer.onEnter=StartLayer_OnEnter
-	layer.onExit=StartLayer_OnExit
-	layer.setFocus=StartLayer_SetFocus
-	layer:setViewArea(0,0,960,640)
-	layer:setTouchEnabled(true)
 
-	local data=layer.data;
-
-	layer:add(data.back_ground)
-	layer:add(data.play)
-	layer:add(data.quit)
-	layer:add(data.setting)
-
+	f_extends(layer,self)
+	layer:Init()
 	return layer
 end
 
 
 
 -- layer begin call back 
-StartLayer_mSelectCallBack=
+StartLayer.mSelectCallBack=
 {
-	onUpdate=StartLayer_SelectUpdate,
-	onTouchBegin=StartLayer_SelectTouchBegin,
-	onTouchMove=StartLayer_SelectTouchBegin,
-	onTouchEnd=StartLayer_SelectTouchEnd,
+	onUpdate=StartLayer.SelectUpdate,
+	onTouchBegin=StartLayer.SelectTouchBegin,
+	onTouchMove=StartLayer.SelectTouchBegin,
+	onTouchEnd=StartLayer.SelectTouchEnd,
 }
 
 
-StartLayer_mStartCallBack=
+StartLayer.mStartCallBack=
 {
-	onUpdate=StartLayer_StartUpdate,
+	onUpdate=StartLayer.StartUpdate,
 }
 
 
-StartLayer_mExitCallBack=
+StartLayer.mExitCallBack=
 {
-	onUpdate=StartLayer_ExitUpdate
+	onUpdate=StartLayer.ExitUpdate
 }
 
 
@@ -249,37 +247,39 @@ StartLayer_mExitCallBack=
 
 
 -- scene  
-local function  SceneStart_OnEnter(self)
-	self:push(self.data.layer)
-	self.data.layer:onEnter();
-	collectgarbage("collect")
-	print("collect gargage")
-end
-
-
-local function SceneStart_OnExit(self)
---	self.data.layer:onExit();
-	self:pop()
-end 
-
-local function SceneStart_CreateData() 
-	return { 
-
-		-- attribute 
-		layer=StartLayer_New(),
-		--call back 
-		onEnter=SceneStart_OnEnter, 
-		onExit=SceneStart_OnExit 
-	} 
-end
-
-function SceneStart_New()
-
+SceneStart=f_newclass()
+function SceneStart:New()
 	local scene=Scene:create()
-	scene.data=SceneStart_CreateData()
+	f_extends(scene,self)
+	scene:Init()
 	return scene;
 
 end
+function SceneStart:Init()
+	-- attribute 
+	self.layer=StartLayer:New()
+	self:push(self.layer)
+
+	--call back 
+end
+
+function  SceneStart:onEnter()
+
+	self.layer:onEnter();
+
+	collectgarbage("collect")
+	print("collect gargage")
+
+	share:textureMgr():unloadAll()
+	share:sprite2DDataMgr():unloadAll()
+
+end
+
+
+function SceneStart:onExit(self)
+end 
+
+
 
 
 
