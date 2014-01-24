@@ -9,8 +9,38 @@ local scene=Scene:create()
 
 local layer=Layer2D:create();
 
-local particle=Particle2DEffect:create(emitter)
+
+
+FParticle={}
+FParticle.__index=FParticle 
+function FParticle:New()
+	local ret=Particle2DEffect:create(emitter)
+	ret.data={}
+	setmetatable(ret.data,self)
+	ret:Init()
+	return ret
+end
+
+function FParticle:Init()
+
+end
+
+function FParticle:onUpdate(dt)
+	self:update(dt)
+	print(self:getMaxParticleNu())
+end
+
+
+particle=FParticle:New() 
 particle:setPosition(480,320)
+particle:setZorder(-1)
+
+
+
+
+
+
+
 
 local quad=Quad2D:create("fire.png")
 quad:setPosition(400,300)
@@ -30,11 +60,11 @@ layer.onUpdate=function(self,dt)
 end 
 layer.onTouchBegin=function(self,x,y)
 	local x,y= self:toLayerCoord(x,y)
-	particle:setPosition(x,y)
+	--particle:setPosition(x,y)
 end
 layer.onTouchMove=function(self,x,y)
 	local x,y= self:toLayerCoord(x,y)
-	particle:setPosition(x,y)
+	--particle:setPosition(x,y)
 end
 layer.onDraw1=function() 
 end
