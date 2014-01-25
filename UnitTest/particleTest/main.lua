@@ -2,7 +2,7 @@ f_import("fps.lua")
 
 
 
-local emitter=Particle2DEmitter:create("file.fpl")
+local emitter=Particle2DEmitter:create("sun.fpl")
 assert(emitter)
 
 local scene=Scene:create()
@@ -22,12 +22,16 @@ function FParticle:New()
 end
 
 function FParticle:Init()
-
+	self:setAutoRemoveOnStop(false)
 end
+
 
 function FParticle:onUpdate(dt)
 	self:update(dt)
 	print(self:getMaxParticleNu())
+	if self:isStop() then 
+		self:start(true)
+	end
 end
 
 
