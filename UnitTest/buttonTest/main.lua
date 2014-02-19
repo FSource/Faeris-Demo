@@ -34,6 +34,33 @@ layer:add(b1)
 
 b1:setPosition(480,320)
 
+b1.data={
+	onClick=function(self)
+		self:click()
+		print("onClick")
+	end;
+	onPressDown=function(self,x,y)
+		self:pressDown(x,y)
+		print("onPressDown",x,y)
+	end;
+	onPressMoveIn=function(self,x,y)
+		self:pressMoveIn(x,y)
+		print("onPressMoveIn",x,y)
+	end;
+	onPressMoveOut=function(self,x,y)
+		self:pressMoveOut(x,y)
+		print("onPressMoveOut",x,y)
+	end;
+	onPressUp=function(self,x,y)
+		self:pressUp(x,y)
+		print("onPressUp",x,y)
+	end;
+	onPressCancel=function(self,x,y)
+		self:pressCancel(x,y)
+		print("onPressCancel",x,y)
+	end
+}
+
 
 
 
