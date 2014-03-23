@@ -1,13 +1,16 @@
-local quad=ColorQuad2D:create(Rect2D(20,20,500,30),Color.RED)
+local quad=ColorQuad2D:create(100,100,Color4f.RED)
+--[[
 quad.data=
 {
 	onUpdate=function(self,dt) 
-		local rect=self:getRect2D()
-		rect.width=rect.width-0.1
-		self:setRect2D(rect)
 	end
 
 }
+--]]
+
+quad:setPosition(480,320);
+
+--quad:setVertexColor(Color4f.RED)
 
 
 local scene=Scene:create()
