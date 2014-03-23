@@ -3,6 +3,18 @@ local director =share:director();
 
 -- create layer */
 local layer= Layer2D:create();
+layer.data={}
+
+layer:setTouchEnabled(true)
+layer:setDispatchTouchEnabled(true)
+
+
+--[[
+layer.onTouchBegin=function()
+	share:scheduler():stop()
+end
+--]]
+
 layer:setViewArea(0,0,1024,800)
 layer:setSortMode(Layer2D.SORT_ORDER_Z)
 
@@ -78,20 +90,41 @@ layer:add(simsun_lable20)
 --]]
 
 
----- some bug 
 
-local simsun_lable20=LabelTTF:create("simsun.ttc",19,"My Name is ChenLin, I Work In NanShan Park, There Are So Many Good People Here, \nSo I'M So Exsiting")
+-- test align 
+
+local simsun_lable20=LabelTTF:create("simsun.ttc",19,"My Name is ChenLin\nI Work In NanShan Park\nThere Are So Many Good People Here\nSo I'M So Exsiting")
 
 simsun_lable20:setColor(Color.GREEN)
-simsun_lable20:setPosition(530,70)
+simsun_lable20:setPosition(430,270)
+simsun_lable20:setBoundSize(200,0)
+simsun_lable20:setTextAlign(FS_TEXT_ALIGN_CENTER)
 
 local col_q=ColorQuad2D:create()
 col_q:setSize(simsun_lable20:getTextSize())
 col_q:setColor(Color(125,125,255,125))
---simsun_lable20:addChild(col_q)
+simsun_lable20:addChild(col_q)
 col_q:setZorder(-1)
 layer:add(simsun_lable20)
 
+
+local simsun_lable20=LabelTTF:create("simsun.ttc",19,"My Name is ChenLin\nI Work In NanShan Park\nThere Are So Many Good People Here\nSo I'M So Exsiting")
+
+simsun_lable20:setColor(Color.GREEN)
+simsun_lable20:setPosition(730,270)
+simsun_lable20:setBoundSize(200,0)
+simsun_lable20:setTextAlign(FS_TEXT_ALIGN_RIGHT)
+
+local col_q=ColorQuad2D:create()
+col_q:setSize(simsun_lable20:getTextSize())
+col_q:setColor(Color(125,125,255,125))
+simsun_lable20:addChild(col_q)
+col_q:setZorder(-1)
+layer:add(simsun_lable20)
+
+
+
+---- some bug 
 
 local simsun_lable20=LabelTTF:create("simsun.ttc",19,"My Name is ChenLin, I Work In NanShan Park, There Are So Many Good People Here,\nSo I'M So Exsiting")
 
@@ -101,19 +134,45 @@ simsun_lable20:setPosition(530.5,30)
 local col_q=ColorQuad2D:create()
 col_q:setSize(simsun_lable20:getTextSize())
 col_q:setColor(Color(125,125,255,125))
---simsun_lable20:addChild(col_q)
+simsun_lable20:addChild(col_q)
 col_q:setZorder(-1)
 layer:add(simsun_lable20)
 
+
+
+-- test hit2d
 local simsun_lable20=LabelTTF:create("simsun.ttc",19,"My Name is ChenLin, I Work In NanShan Park, There Are So Many Good People Here,\nSo I'M So Exsiting")
+simsun_lable20.data={}
+simsun_lable20:setTextAlign(FS_TEXT_ALIGN_CENTER)
+
+local time=0
 
 simsun_lable20:setColor(Color.GREEN)
 simsun_lable20:setPosition(530,120)
 local col_q=ColorQuad2D:create()
 col_q:setSize(simsun_lable20:getTextSize())
 col_q:setColor(Color(125,125,255,125))
---simsun_lable20:addChild(col_q)
+simsun_lable20:addChild(col_q)
 col_q:setZorder(-1)
+
+simsun_lable20.onUpdate=function(self,dt)
+	time=time+dt
+	self:setString(string.format("My Name is ChenLin\nI Work In NanShan Park\nNow Time Is %fs\nThere Are So Many Good People Here,\nSo I'M So Exsiting",time))
+	col_q:setSize(simsun_lable20:getTextSize())
+end
+
+simsun_lable20:setTouchEnabled(true)
+simsun_lable20.onTouchBegin=function(self)
+	self:setColor(Color(math.random(0,255),math.random(0,255),math.random(0,255)))
+end
+
+
+
+
+
+
+
+
 layer:add(simsun_lable20)
 
 
