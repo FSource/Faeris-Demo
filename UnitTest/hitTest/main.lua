@@ -23,7 +23,7 @@ quad2d.data={
 
 local c_quad=ColorQuad2D:create(Rect2D(-100,-100,200,200),Color.RED)
 c_quad:setPosition(300,-300,0);
-c_quad:setColor(Color.WHITE,ColorQuad2D.VERTEX_A)
+c_quad:setVertexColor(Color.WHITE,ColorQuad2D.VERTEX_A)
 
 
 
@@ -44,10 +44,9 @@ tree2.data={
 }
 tree2:setPosition(200,200,0)
 
-local font=FontTTF:create("simsun.ttc",30)
 
 
-local label=LabelTTF:create("This Is A Font",font);
+local label=LabelTTF:create("simsun.ttc",30,"This Is A Font");
 label:setPosition(-300,300,0)
 label.data={
 	onUpdate=function(self,dt)

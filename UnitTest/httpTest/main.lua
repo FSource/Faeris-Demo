@@ -1,7 +1,8 @@
 
-print("Create Http Engine Begin")
-http=HttpEngine:create()
-print("Create Http Engine End")
+
+for i=1,100 do
+	http=HttpEngine:create()
+end 
 
 
 request=HttpRequest:create()
