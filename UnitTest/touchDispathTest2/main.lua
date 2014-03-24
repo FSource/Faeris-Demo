@@ -15,6 +15,7 @@ local panelx,panely=1024*0.8,960*0.8
 local panel=Panel:create(panelx,panely)
 panel:setPosition(1024/2,960/2)
 panel:setDispatchTouchEnabled(true)
+
 panel:setScissorEnabled(false)
 
 local color=ColorQuad2D:create(Rect2D(-panelx/2,-panely/2,panelx,panely),Color(255,255,0,100))

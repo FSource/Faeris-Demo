@@ -68,6 +68,12 @@ panel:addChild(c_quad_small)
 
 panel:setPosition(512,480)
 
+panel.data={
+	onTouchBegin=function(self,x,y)
+		self:touchBegin(x,y)
+	end
+}
+
 
 layer:add(panel)
 
