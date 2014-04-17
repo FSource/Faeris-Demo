@@ -1,0 +1,52 @@
+emitter:{
+	durationTime:10.000000
+	durationTimeVar:0.000000
+	emitSpeed:100
+	maxParticleNu:1000000
+}
+particle:{
+	lifeTime:2.000000
+	lifeTimeVar:0.500000
+	startSize:1.000000
+	startSizeVar:0.300000
+	endSize:1.000000
+	endSizeVar:0.300000
+	startColor:[193,63,30,255]
+	startColorVar:[0,0,0,0]
+	endColor:[0,0,0,255]
+	endColorVar:[0,0,0,0]
+	angle:90.000000
+	angleVar:360.000000
+	startRotation:0.000000
+	startRotationVar:0.000000
+	endRotation:0.000000
+	endRotationVar:0.000000
+	position:[0.000000,0.000000]
+	positionVar:[0.000000,0.000000]
+	moveMode:"free"
+}
+texture:{
+	url:"fire.png"
+	blendSrc:"SrcAlpha"
+	blendDst:"One"
+}
+environment:{
+	mode:"gravity"
+	gravity:{
+		speed:20.000000
+		speedVar:5.000000
+		gravity:[0.000000,0.000000]
+		radialAcceleration:0.000000
+		radialAccelerationVar:0.000000
+		tangentialAcceleration:0.000000
+		tangentialAccelerationVar:0.000000
+	}
+	radial:{
+		startRadius:0.000000
+		startRadiusVar:0.000000
+		endRadius:0.000000
+		endRadiusVar:0.000000
+		rotateSpeed:0.000000
+		rotateSpeedVar:0.000000
+	}
+}

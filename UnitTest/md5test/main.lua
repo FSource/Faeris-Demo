@@ -1,6 +1,0 @@
-local m1=f_md5string("The quick brown fox jumps over the lazy dog")
-local m2=f_md5string("The quick brown fox jumps over the lazy cog")
-local m3=f_md5string("")
-print(m1)
-print(m2)
-print(m3)
