@@ -85,7 +85,7 @@ function GameLayer:InitQuad()
 	
 
 	local totalW = self.RectW - w - 3;
-	local totalTime = 2;
+	local totalTime = 1.5;
 	local interpolation = totalW;
 	quad:SetInterpolation(interpolation);
 	quad:SetTotalTime(totalTime)
