@@ -23,7 +23,7 @@ function GameLayer:Init()
 	self:InitQuad();
 	self:InitRunButton();
 	self:InitMoveButtons();
-	
+	self:InitEaseTypeButtons();
 	
 end
 
@@ -43,6 +43,15 @@ end
 
 function GameLayer:GetMoveType()
 	return self.MoveType;
+end
+
+
+function GameLayer:SetEaseType(type)
+	self.EaseType = type;
+end
+
+function GameLayer:GetEaseType()
+	return self.EaseType;
 end
 
 
@@ -117,25 +126,69 @@ function GameLayer:Run()
 	local quad = self:GetQuad();
 	if quad then
 		quad:InitData();
-		quad:SetType(self:GetMoveType());
+		quad:SetMoveType(self:GetMoveType());
+		quad:SetEaseType(self:GetEaseType())
 	end
 end
 
 function GameLayer:InitMoveButtons()
+
+	self.MoveButtons = {};
+
 	for index, value in ipairs(ChooseModel_CFG) do
-		local tbutuon = TextButton:New(value);
+		local tbutuon = ChooseButton:New(value);
 		self:add(tbutuon);
-		
+		table.insert(self.MoveButtons, tbutuon)
 		tbutuon.Func = function()
 			self:SetMoveType(value.text)
+			
+			for _, button in ipairs(self.MoveButtons) do
+				button:SetBeChoosed(false)
+			end
+			tbutuon:SetBeChoosed(true)
 		end
 		
 	end
 end
 
+local easeTypes = {
+	{Text = "EaseIn", Value = FS_EASE_IN},
+	{Text = "EaseOut", Value = FS_EASE_OUT},
+	{Text = "EaseInOut", Value = FS_EASE_INOUT},
+	{Text = "EaseOutIn", Value = FS_EASE_OUTIN},
+}
 
+function GameLayer:InitEaseTypeButtons()
 
+	self.EaseTypeButtons = {};
 
+	local x = W_Width - 200;
+	local y = W_Height/2;
+	
+	for index, value in ipairs(easeTypes) do
+		local bx = x;
+		local by = y - (index - 1)*70
+		local cfg =	 {
+			w = 120,
+			h = 60,
+			x = bx,
+			y = by,
+			text = value.Text,
+			color = Color(145, 156, 89),
+		};
+		button = ChooseButton:New(cfg);
+		table.insert(self.EaseTypeButtons, button);
+		self:add(button);
+		button.Func = function()
+			self:SetEaseType(value.Value);
+			
+			for _, _button in ipairs(self.EaseTypeButtons) do
+				_button:SetBeChoosed(false)
+			end
+			button:SetBeChoosed(true);
+		end
+	end
+end
 
 
 

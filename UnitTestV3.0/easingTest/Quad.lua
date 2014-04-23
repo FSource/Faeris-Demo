@@ -21,6 +21,7 @@ function Quad:Init(cfg)
 	self.Time = 0;
 	self.TotalTime = 2
 	self.MoveType = "Linear";
+	self.EaseType = FS_EASE_IN;
 end
 
 function Quad:SetTotalTime(time)
@@ -59,12 +60,14 @@ function Quad:GetValueByType(p)
 			if not self.LinerEase then
 				self.LinearEase = LinearEase:create();
 			end
+			self.LinearEase:setMode(self.EaseType)
 			return self.LinearEase:getValue(p);
 			
 		elseif self.MoveType == "Back" then
 			if not self.BackEase then
 				self.BackEase = BackEase:create(FS_EASE_INOUT);
 			end
+			self.BackEase:setMode(self.EaseType)
 			return self.BackEase:getValue(p);
 		else
 			return p;
@@ -72,11 +75,13 @@ function Quad:GetValueByType(p)
 	end
 end
 
-function Quad:SetType(type)
+function Quad:SetMoveType(type)
 	self.MoveType = type;
 end
 
-
+function Quad:SetEaseType(type)
+	self.EaseType = type;
+end
 
 
 

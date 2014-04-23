@@ -3,6 +3,8 @@ f_import("GameLayer.lua")
 f_import("Quad.lua")
 
 f_import("textButton.lua");
+f_import("ChooseButton.lua");
+
 f_import("ChooseModel.lua");
 
 

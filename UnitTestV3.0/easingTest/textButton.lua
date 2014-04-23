@@ -11,7 +11,7 @@ function TextButton:New(o)
 	local color = o.color or Color(45, 56, 89);
 	local entity = ColorQuad2D:create(w, h, color);
 	entity.data = {};
-	setmetatable(entity.data, TextButton);
+	setmetatable(entity.data, self);
 	entity:Init(o);
 	return entity;
 end
