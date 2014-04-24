@@ -1,11 +1,14 @@
 PayCodeUi=f_newclass("PayCodeUi")
 
 function PayCodeUi:New()
+
 	local ret=Layer2D:create()
 	f_extends(ret,self)
 	ret:Init()
 	return ret
+
 end
+
 
 
 function PayCodeUi:Init()
@@ -75,23 +78,26 @@ function PayCodeUi:InitPaycodes()
 		buttons.onTouchEnd=function()
 
 			buttons:setColor(Color.WHITE)
-			self:ShowPayResult(v.description,"成功")
 
 			g_Payment:Billing(v.name,{
-				onSuccess=function()
-					self:ShowPayResult(v.description,"成功")
+				param={
+					["uid"]=5,
+				},
+
+				onSuccess=function(msg)
+					self:ShowPayResult(v.description,"成功"..msg.msg)
 				end,
 
-				onFailed=function()
-					self:ShowPayResult(v.description,"失败")
+				onFailed=function(msg)
+					self:ShowPayResult(v.description,"失败"..msg.msg)
 				end,
 
-				onCancel=function()
-					self:ShowPayResult(v.description,"取消")
+				onCancel=function(msg)
+					self:ShowPayResult(v.description,"取消"..msg.msg)
 				end,
 
-				onError=function()
-					self:ShowPayResult(v.description,"错误")
+				onError=function(msg)
+					self:ShowPayResult(v.description,"错误"..msg.msg)
 				end,
 			})
 		end
