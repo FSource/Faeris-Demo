@@ -1,7 +1,7 @@
-f_import("GraphicsShowUi.lua")
+f_import("CurveView.lua")
 
 local scene=Scene:create()
-scene:push(GraphicsShowUi:New())
+scene:push(CatmullRomCurveView:New())
 share:director():run(scene)
 
 
