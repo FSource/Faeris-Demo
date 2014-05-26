@@ -65,7 +65,7 @@ function Quad:GetValueByType(p)
 			
 		elseif self.MoveType == "Back" then
 			if not self.BackEase then
-				self.BackEase = BackEase:create(FS_EASE_INOUT);
+				self.BackEase = BackEase:create();
 			end
 			self.BackEase:setMode(self.EaseType)
 			return self.BackEase:getValue(p);

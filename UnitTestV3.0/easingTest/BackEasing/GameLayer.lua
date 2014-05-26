@@ -176,7 +176,7 @@ function GameLayer:InitEaseTypeButtons()
 			text = value.Text,
 			color = Color(145, 156, 89),
 		};
-		button = ChooseButton:New(cfg);
+		local button = ChooseButton:New(cfg);
 		table.insert(self.EaseTypeButtons, button);
 		self:add(button);
 		button.Func = function()
