@@ -25,11 +25,10 @@ function fButton:Init(cfg)
 		libfs.SetAttrute(S_fButtonPreAttrFunc,self,cfg.normal)
 		libfs.SetAttrute(S_fButtonPostAttrFunc,self,cfg.normal)
 	end
-	self.m_soundEffect=cfg.soundEffect or  SoundEffect.ButtonPress
+	--self.m_soundEffect=cfg.soundEffect or  SoundEffect.ButtonPress
 	--print(self.m_soundEffect)
 end
 function fButton:onTouchBegin(x,y)
-	g_AudioEngine:playSound(self.m_soundEffect)
 	self.f_focus=true
 	self:onTouchMoveIn()
 	return true

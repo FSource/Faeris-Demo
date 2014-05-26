@@ -12,7 +12,10 @@ function EaseExample:Init()
 	local layer=Layer2D:create()
 	layer:setViewArea(0,0,W_WIDTH,W_HEIGHT)
 
-	layer:add(CurvePanel:New{
+	layer:setTouchEnabled(true)
+	layer:setDispatchTouchEnabled(true)
+
+	layer:add(CurveHListPanel:New{
 		pos={x=0,y=500},
 		height=255,
 	})

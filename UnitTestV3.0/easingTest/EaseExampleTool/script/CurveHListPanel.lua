@@ -1,17 +1,19 @@
-CurvePanel=libfs.Class("CurvePanel")
+CurveHListPanel=libfs.Class("CurveHListPanel")
 
-function CurvePanel:New(cfg)
+function CurveHListPanel:New(cfg)
+
 	local ret=Panel:create()
-
 	libfs.Extends(ret,self)
 	ret:Init(cfg)
 	return ret
 
 end
 
-function CurvePanel:Init(cfg)
+function CurveHListPanel:Init(cfg)
 
 	self:setScissorEnabled(false)
+	self:setTouchEnabled(true)
+	self:setDispatchTouchEnabled(true)
 
 	if cfg.pos then 
 		self:setPosition(cfg.pos.x,cfg.pos.y)
@@ -25,36 +27,27 @@ end
 
 
 
-function CurvePanel:InitAxis()
+function CurveHListPanel:InitAxis()
 	local step=W_WIDTH/4
 	local start_x=100
 
-	local y=30
+	local y=60
 
 	for i=1,4 do 
-		local axis=AxisCoord:New{
-			width=180,
-			height=180,
-			center=0.1,
-			sampleNu=1000,
-		}
-		if i==1 then 
-			axis:SetCurve(BounceEase:create())
-		elseif i==2 then 
-			axis:SetCurve(ElasticEase:create())
-		elseif i==3 then 
-			axis:SetCurve(CircleEase:create())
-		elseif i==4 then 
-			axis:SetCurve(BackEase:create())
+		local widget=CurveWidget:New()
+		widget:setPosition(start_x+(i-1)*step,y)
+		if i== 2 then 
+			widget:SetCurveEditEnabled(false)
 		end
-		axis:setPosition(start_x+(i-1)*step,y)
-		self:addChild(axis)
+		self:addChild(widget)
+
 	end
 
 end
 
 
-function CurvePanel:InitLine(cfg)
+function CurveHListPanel:InitLine(cfg)
+
 	local outline=VertexPolygon:create()
 	outline:append(0,0)
 	outline:append(W_WIDTH,0)
