@@ -1,16 +1,58 @@
 g_EaseCfg={
 	{
-		name="BackEase",
+		name="LinearEase",
 		new=function()
-			return BackEase:create()
+			return LinearEase:create()
+		end,
+
+		edit=false,
+	},
+	{
+		name="QuadEase",
+		new=function()
+			return QuadEase:create()
 		end,
 		edit=false,
 	},
 	{
-		name="BezierEase",
+		name="CubicEase",
 		new=function()
-			--return BezierEase:create(Vector2(0.3,0.0),Vector2(0.6,1.0))
-			return LinearEase:create()
+			return CubicEase:create()
+		end,
+		edit=false,
+	},
+	{
+		name="QuartEase",
+		new=function()
+			return QuartEase:create()
+		end,
+		edit=false,
+	},
+	{
+		name="QuintEase",
+		new=function()
+			return QuintEase:create()
+		end,
+		edit=false,
+	},
+	{
+		name="PowerEase",
+		new=function()
+			return PowerEase:create(2)
+		end,
+		edit=false,
+	},
+	{
+		name="ExponentialEase",
+		new=function()
+			return ExponentialEase:create()
+		end,
+		edit=false,
+	},
+	{
+		name="BackEase",
+		new=function()
+			return BackEase:create()
 		end,
 		edit=false,
 	},
@@ -31,13 +73,6 @@ g_EaseCfg={
 		edit=false,
 	},
 	{
-		name="CubicEase",
-		new=function()
-			return CircleEase:create()
-		end,
-		edit=false,
-	},
-	{
 		name="ElasticEase",
 		new=function()
 			return ElasticEase:create()
@@ -45,45 +80,10 @@ g_EaseCfg={
 		edit=false,
 	},
 	{
-		name="ExponentialEase",
+		name="BezierEase",
 		new=function()
-			return ExponentialEase:create()
-		end,
-		edit=false,
-	},
-	{
-		name="LinearEase",
-		new=function()
+			--return BezierEase:create(Vector2(0.3,0.0),Vector2(0.6,1.0))
 			return LinearEase:create()
-		end,
-
-		edit=false,
-	},
-	{
-		name="PowerEase",
-		new=function()
-			return PowerEase:create(2)
-		end,
-		edit=false,
-	},
-	{
-		name="QuadEase",
-		new=function()
-			return QuadEase:create()
-		end,
-		edit=false,
-	},
-	{
-		name="QuartEase",
-		new=function()
-			return QuartEase:create()
-		end,
-		edit=false,
-	},
-	{
-		name="QuintEase",
-		new=function()
-			return QuintEase:create()
 		end,
 		edit=false,
 	},

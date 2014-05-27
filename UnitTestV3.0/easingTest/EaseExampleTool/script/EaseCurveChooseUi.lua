@@ -1,5 +1,7 @@
 EaseCurveChooseUi=libfs.Class("EaseCurveChooseUi")
 
+local S_SelectColor=Color(205,73,0)
+local S_UnSelectColor=Color(0,114,188)
 
 
 function EaseCurveChooseUi:New()
@@ -18,6 +20,7 @@ function EaseCurveChooseUi:Init()
 
 	self:InitBg()
 	self:InitEaseChooseBoard()
+	self:InitPressButton()
 
 end
 
@@ -41,27 +44,92 @@ function EaseCurveChooseUi:InitEaseChooseBoard()
 		local y=start_y+ math.floor((k-1)/5)*step_y
 		local board=EaseChooseBoard:New(v)
 		board:setTouchEnabled(true)
-
 		board.onTouchBegin=function(x,y)  
-			print("tttt") 
 			if self.m_foucs then 
 				self.m_foucs:setState("normal")
 			end
 			self.m_foucs=board 
 			self.m_foucs:setState("press")
+			self.m_foucsIndex=k
+		end
+		if k== 1 then 
+			board:setState("press")
+			self.m_foucs=board
 		end
 
 		board:setPosition(x,y) 
-		print(x,y)
 		self:add(board)
 	end
 	self.m_foucsIndex=1
 
 end
 
+function EaseCurveChooseUi:InitPressButton()
+	local ok_button=libfs.NewFType{
+		touchEnabled=true,
+		ftype="fButton",
+		textureUrl="image/button_bg.png",
+		size={w=80,h=30},
+		pos={x=W_WIDTH-100,y=30},
+
+		children={
+			["label"]={
+				ftype="fLabelTTF",
+				fontName=g_DefaultFontName,
+				fontSize=20,
+				string="Ok",
+			}
+		},
+		normal={
+			color=Color(102,45,145),
+		},
+		press={
+			color=Color(102,45,145,100),
+		},
+	}
+
+	self:add(ok_button)
+	ok_button.onClick=function()
+		self:getScene():remove(self)
+		self:onOk(self.m_foucsIndex)
+	end
+
+	local cancle_button=libfs.NewFType{
+		touchEnabled=true,
+		ftype="fButton",
+		textureUrl="image/button_bg.png",
+		size={w=80,h=30},
+		pos={x=W_WIDTH-250,y=30},
+		children={
+			["label"]={
+				ftype="fLabelTTF",
+				fontName=g_DefaultFontName,
+				fontSize=20,
+				string="Cancel",
+			}
+		},
+		normal={
+			color=Color(102,45,145),
+		},
+		press={
+			color=Color(102,45,145,100),
+		},
+	}
+
+	self:add(cancle_button)
+	cancle_button.onClick=function()
+		self:getScene():remove(self)
+	end
+
+end
+
+
 function EaseCurveChooseUi:onTouchBegin(x,y)
 	self:touchBegin(x,y) 
 	return true 
+end
+
+function EaseCurveChooseUi:onOk(index)
 end
 
 

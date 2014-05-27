@@ -32,15 +32,13 @@ function CurveHListPanel:InitAxis()
 	local start_x=100
 
 	local y=60
+	self.m_widget={}
 
 	for i=1,4 do 
 		local widget=CurveWidget:New()
 		widget:setPosition(start_x+(i-1)*step,y)
-		if i== 2 then 
-			widget:SetCurveEditEnabled(false)
-		end
 		self:addChild(widget)
-
+		self.m_widget[i]=widget
 	end
 
 end
@@ -59,7 +57,10 @@ function CurveHListPanel:InitLine(cfg)
 
 	self:addChild(outline)
 
+end
 
+function CurveHListPanel:GetCurve(index)
+	return self.m_widget[index]:GetCurve()
 end
 
 

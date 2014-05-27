@@ -4,6 +4,12 @@ local S_SelectColor=Color(205,73,0)
 local S_UnSelectColor=Color(0,114,188)
 local S_LabelColor=Color.WHITE
 local S_TabEntitySize={w=80,h=20}
+local S_ModeMap={
+		FS_EASE_IN,
+		FS_EASE_OUT,
+		FS_EASE_INOUT,
+		FS_EASE_OUTIN,
+	}
 
 function CurveWidget:New()
 	local ret=Entity:create()
@@ -19,8 +25,10 @@ function CurveWidget:Init()
 	self:InitRadioButtons()
 	self:InitTitle()
 	self:InitAxis()
-
 	self.m_tabBar:SetCurrentIndex(1,true)
+
+	self:SetCurveIndex(1)
+
 end
 
 
@@ -67,6 +75,9 @@ function CurveWidget:InitRadioButtons()
 	end
 
 	self.m_tabBar.onCurrentIndexChange=function(_,index)
+		if index <=0 or index > 4 then 
+			return
+		end
 		self.m_index=index
 		self:UpdateCurve()
 	end
@@ -83,7 +94,7 @@ function CurveWidget:InitAxis()
 		sampleNu=1000,
 	}
 
-	self.m_curve=BackEase:create()
+	self.m_curve=LinearEase:create()
 	self:addChild(axis)
 	self.m_axis=axis
 end
@@ -202,30 +213,42 @@ function CurveWidget:GetMode()
 end
 
 function CurveWidget:UpdateCurve()
-	local mode_map={
-		FS_EASE_IN,
-		FS_EASE_OUT,
-		FS_EASE_INOUT,
-		FS_EASE_OUTIN,
-	}
-
-	self.m_axis:SetCurve(self.m_curve,mode_map[self.m_index])
+	self.m_axis:SetCurve(self.m_curve,S_ModeMap[self.m_index])
 end
 
 function CurveWidget:SetCurve(curve,title,editable)
+	print(curve:className(),title,editable)
 	self.m_curve=curve 
 	self:SetTitle(title)
 	self:SetCurveEditEnabled(editable)
+	self:UpdateCurve()
+end
+function CurveWidget:GetCurve()
+	return self.m_curve,S_ModeMap[self.m_index]
 end
 
 
 function CurveWidget:onChangeClick()
-	self:getScene():push(EaseCurveChooseUi:New())
-	print("onChangeClick")
+	local choose_ui=EaseCurveChooseUi:New()
+	choose_ui.onOk=function(_,index)
+		self:SetCurveIndex(index)
+	end
+
+	self:getScene():push(choose_ui)
+end
+
+function CurveWidget:SetCurveIndex(index)
+	local ease=g_EaseCfg[index]
+	self:SetCurve(ease.new(),ease.name,ease.edit)
+
 end
 
 function CurveWidget:onEditClick()
 	print("onEditClick")
+end
+function CurveWidget:onUpdate(dt)
+	self:update(dt) 
+	self.m_axis:SetPositionIdentify(self:getScene():GetCurTimePercent())
 end
 
 
