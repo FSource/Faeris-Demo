@@ -1,6 +1,6 @@
 win:{
-	width:320
-	height:480
+	width:400
+	height:600
 	caption:"Jigsaw"
 }
 

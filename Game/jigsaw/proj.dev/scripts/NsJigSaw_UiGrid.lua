@@ -1,45 +1,31 @@
 util.import("scripts/Grid.lua")
 
-NsJigSaw_UiGrid={}
-NsJigSaw_UiGrid.__index=NsJigSaw_UiGrid
 
-
-
-UiGrid_Unit={}
-UiGrid_Unit.__index=UiGrid_Unit 
-
+UiGrid_Unit=f_newclass()
 function UiGrid_Unit:New()
 	local ret=Quad2D:create("textures/unit_default.png")
-	ret.data={}
-	setmetatable(ret.data,UiGrid_Unit)
+	f_extends(ret,self)
 	return ret
 end
 
 
 -- ui grid --
+NsJigSaw_UiGrid=f_newclass()
 function NsJigSaw_UiGrid:New()
 	local ret=Layer2D:create()
-	ret.data={}
-	setmetatable(ret.data,NsJigSaw_UiGrid)
+	f_extends(ret,self)
 	ret:Init()
-
-	ret:setViewArea(0,0,GAME_WIDTH,GAME_HEIGHT)
-	ret:setTouchEnabled(true)
-	ret:setScissorEnabled(true)
-	local sx=self.ms_gridPos.x/GAME_WIDTH 
-	local sy=(self.ms_gridPos.y-self.ms_row*self.ms_unitSize.height)/GAME_HEIGHT 
-	local swidth=self.ms_unitSize.width*self.ms_column/GAME_WIDTH 
-	local sheight=self.ms_unitSize.height*self.ms_row/GAME_HEIGHT 
-	ret:setScissorArea(sx,sy,swidth,sheight)
 	return ret
+
 end
 
 function NsJigSaw_UiGrid:Init()
 
 	local tmp_head=UiGrid_Unit:New()
 	local tmp_tail=UiGrid_Unit:New() 
-	tmp_head:setRect2D(Rect2D(-self.ms_unitSize.width/2,-self.ms_unitSize.height/2,self.ms_unitSize.width,self.ms_unitSize.height))
-	tmp_tail:setRect2D(Rect2D(-self.ms_unitSize.width/2,-self.ms_unitSize.height/2,self.ms_unitSize.width,self.ms_unitSize.height))
+	tmp_head:setSize(self.ms_unitSize.width,self.ms_unitSize.height)
+	tmp_tail:setSize(self.ms_unitSize.width,self.ms_unitSize.height)
+
 	self:add(tmp_head)
 	self:add(tmp_tail)
 
@@ -50,7 +36,8 @@ function NsJigSaw_UiGrid:Init()
 			local rect=self:GetUnitRect(i,j)
 			local u=UiGrid_Unit:New() 
 			u:setPosition(rect.x,rect.y)
-			u:setRect2D(Rect2D(-rect.width/2,-rect.height/2,rect.width,rect.height))
+			u:setSize(rect.width,rect.height)
+			print(u:getSize(1,1))
 			self:add(u)
 			grid:Set(i,j,u)
 		end
@@ -62,6 +49,14 @@ function NsJigSaw_UiGrid:Init()
 
 	self.onTouchBegin=self.TouchBeginNormal
 
+	self:setViewArea(0,0,GAME_WIDTH,GAME_HEIGHT)
+	self:setTouchEnabled(true)
+	self:setScissorEnabled(true)
+	local sx=self.ms_gridPos.x/GAME_WIDTH 
+	local sy=(self.ms_gridPos.y-self.ms_row*self.ms_unitSize.height)/GAME_HEIGHT 
+	local swidth=self.ms_unitSize.width*self.ms_column/GAME_WIDTH 
+	local sheight=self.ms_unitSize.height*self.ms_row/GAME_HEIGHT 
+	self:setScissorArea(sx,sy,swidth,sheight)
 end
 
 
@@ -74,6 +69,7 @@ function NsJigSaw_UiGrid:LoadLevel(l)
 			local texture= share:textureMgr():load(res_url)
 			local u=self.m_grid:Get(i,j)
 			u:setTexture(texture)
+			u:setSize(self.ms_unitSize.width,self.ms_unitSize.height)
 			u.m_id=id
 		end
 	end
@@ -137,10 +133,12 @@ function NsJigSaw_UiGrid:AdjustColumnPosQuick(row,diffx)
 	local rect_head=self:GetUnitRect(-1,row)
 	local rect_tail=self:GetUnitRect(self.ms_column,row)
 	self.m_tmpHead:setTexture(tail_texture)
+	self.m_tmpHead:setSize(self.ms_unitSize.width,self.ms_unitSize.height)
 	self.m_tmpHead:setPosition(rect_head.x+dt,rect_head.y)
 
 	self.m_tmpTail:setTexture(head_texture)
 	self.m_tmpTail:setPosition(rect_tail.x+dt,rect_tail.y)
+	self.m_tmpTail:setSize(self.ms_unitSize.width,self.ms_unitSize.height)
 
 end
 
@@ -172,10 +170,12 @@ function NsJigSaw_UiGrid:AdjustRowPosQuick(col,diffy)
 	local rect_tail=self:GetUnitRect(col,self.ms_row)
 
 	self.m_tmpHead:setTexture(tail_texture)
+	self.m_tmpHead:setSize(self.ms_unitSize.width,self.ms_unitSize.height)
 	self.m_tmpHead:setPosition(rect_head.x,rect_head.y+dt)
 
 	self.m_tmpTail:setTexture(head_texture)
 	self.m_tmpTail:setPosition(rect_tail.x,rect_tail.y+dt)
+	self.m_tmpTail:setSize(self.ms_unitSize.width,self.ms_unitSize.height)
 end
 
 function NsJigSaw_UiGrid:AdjustGridPosQuick() 
@@ -233,7 +233,7 @@ function NsJigSaw_UiGrid:AdjustColumnPosSlow()
 		speed = -dt/math.abs(dt)* self.ms_speed 
 	end
 
-	local time = math.abs(dt/speed*1000) 
+	local time = math.abs(dt/speed) 
 
 	self.m_slowDirection="column"
 	self.m_slowHit={col=self.m_hit.col,row=self.m_hit.row}
@@ -258,7 +258,7 @@ function NsJigSaw_UiGrid:AdjustRowPosSlow()
 		speed=-dt/math.abs(dt)*self.ms_speed 
 	end
 
-	local time=math.abs(dt/speed*1000)
+	local time=math.abs(dt/speed)
 
 	self.m_slowDirection="row"
 	self.m_slowHit={col=self.m_hit.col,row=self.m_hit.row}
@@ -282,7 +282,7 @@ function NsJigSaw_UiGrid:UpdateAdjustPosSlow(time)
 	end
 	self.m_slowTime= self.m_slowTime - time 
 
-	local dt=time/1000*self.m_slowSpeed 
+	local dt=time*self.m_slowSpeed 
 
 	self.m_slowDt=self.m_slowDt+dt
 
@@ -317,6 +317,7 @@ function NsJigSaw_UiGrid:TouchBeginNormal(x,y)
 	self.m_hit={col=i,row=j}
 	--util.log("i="..i.." j="..j )
 
+	return true
 end
 
 function  NsJigSaw_UiGrid:TouchMoveNormal(x,y) 

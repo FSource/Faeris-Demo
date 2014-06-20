@@ -38,7 +38,7 @@ function util.QuadNew(param)
 end
 
 function util.LabelTTFNew(param) 
-	local ret=LabelTTF:create(param.text,param.font)
+	local ret=LabelTTF:create(param.fontName,param.fontSize,param.text)
 	for k,v in pairs(param) do 
 		if k == "pos" then 
 			ret:setPosition(v.x,v.y)
@@ -50,8 +50,8 @@ function util.LabelTTFNew(param)
 			ret:setColor(Color(v.r,v.g,v.b))
 		elseif k=="zorder" then 
 			ret:setZorder(v)
-		elseif k=="align" then 
-			ret:setAlign(v.h,v.v)
+		elseif k=="anchor" then 
+			ret:setAnchor(v.x,v.y)
 		end
 	end 
 	ret.data={m_param=param}

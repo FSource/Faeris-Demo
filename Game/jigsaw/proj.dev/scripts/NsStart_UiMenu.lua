@@ -1,38 +1,29 @@
-NsStart={}
-NsStart.__index=NsStart
-
-
-NsStart_UiMenu={}
-NsStart_UiMenu.__index=NsStart_UiMenu
-
-
-function NsStart:New()
-	local scene=Scene:create()
-	local menu_layer=NsStart_UiMenu:New()
-	scene:push(menu_layer) 
-	return scene 
+NsStart_UiMenu=f_newclass()
+function NsStart_UiMenu:New()
+	local ret=Layer2D:create()
+	f_extends(ret,self)
+	ret:Init()
+	return ret
 end
 
 
-function NsStart_UiMenu:New()
-	local ret=Layer2D:create()
-	ret.data={}
-	setmetatable(ret.data,NsStart_UiMenu)
-	ret:setViewArea(0,0,GAME_WIDTH,GAME_HEIGHT)
-	ret:setTouchEnabled(true)
+function NsStart_UiMenu:Init()
+
+	self:setViewArea(0,0,GAME_WIDTH,GAME_HEIGHT)
+	self:setTouchEnabled(true)
 
 	local bg=util.QuadNew(self.ms_background)
-	ret:add(bg)
+	self:add(bg)
 	local buttons={}
 
 	for k,v in pairs(self.ms_buttons) do 
 		local b=util.QuadNew(v)
 		buttons[k]=b
-		ret:add(b)
+		self:add(b)
 	end
 
-	ret.m_button=buttons
-	ret.m_menuLayer=menu_layer
+	self.m_button=buttons
+	self.m_menuLayer=menu_layer
 	return ret
 
 end

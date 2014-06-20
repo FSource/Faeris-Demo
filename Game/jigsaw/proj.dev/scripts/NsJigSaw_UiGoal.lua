@@ -1,22 +1,19 @@
 util.import("scripts/NsJigSaw_UiGrid.lua") 
 util.import("scripts/Grid.lua")
 
-NsJigSaw_UiGoal={} 
-NsJigSaw_UiGoal.__index=NsJigSaw_UiGoal 
+NsJigSaw_UiGoal=f_newclass()
 
 
 function NsJigSaw_UiGoal:New() 
 	local ret=Layer2D:create()
-	ret.data={}
-	setmetatable(ret.data,NsJigSaw_UiGoal)
-
+	f_extends(ret,self)
 	ret:Init()
-	ret:setViewArea(0,0,GAME_WIDTH,GAME_HEIGHT)
-	return ret
+	return ret 
 end
 
 function NsJigSaw_UiGoal:Init()
 
+	self:setViewArea(0,0,GAME_WIDTH,GAME_HEIGHT)
 	local group=Entity:create()
 	local grid=Grid:New(self.ms_column,self.ms_row)
 	for i=0,self.ms_column-1 do 
@@ -51,6 +48,8 @@ function NsJigSaw_UiGoal:LoadLevel(l)
 			local texture= share:textureMgr():load(res_url)
 			local u=self.m_grid:Get(i,j)
 			u:setTexture(texture)
+			u:setSize( NsJigSaw_UiGoal.ms_unitSize.width,NsJigSaw_UiGoal.ms_unitSize.height)
+ 
 		end
 	end
 end
@@ -91,7 +90,7 @@ function NsJigSaw_UiGoal:DisActive()
 end
 
 function NsJigSaw_UiGoal:UpdateGroup(dt)
-	local t=dt/1000 
+	local t=dt
 	if t > self.m_time then 
 		t=self.m_time 
 	end

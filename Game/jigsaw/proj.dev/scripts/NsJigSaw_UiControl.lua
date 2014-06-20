@@ -1,35 +1,37 @@
-NsJigSaw_UiControl={}
-NsJigSaw_UiControl.__index=NsJigSaw_UiControl 
+NsJigSaw_UiControl=f_newclass()
 
 
 function NsJigSaw_UiControl:New()
 	local ret=Layer2D:create()
-	ret.data={}
-	setmetatable(ret.data,NsJigSaw_UiControl)
+	f_extends(ret,self)
+	ret:Init()
+	return ret
+end
 
-	ret:setViewArea(0,0,GAME_WIDTH,GAME_HEIGHT)
-	ret:setTouchEnabled(true)
+function NsJigSaw_UiControl:Init()
+
+	self:setViewArea(0,0,GAME_WIDTH,GAME_HEIGHT)
+	self:setTouchEnabled(true)
 
 	local children={}
 	local event={}
 
 	for k,v in pairs(self.ms_layouts) do 
 		local t=v.onCreate(v)
-		ret:add(t)
+		self:add(t)
 		children[k]=t
 		if v.event then 
 			event[k]=t 
 		end
 	end
-	ret.m_eventPlay={children["pause"],children["help"]}
+	self.m_eventPlay={children["pause"],children["help"]}
 	--ret.m_eventSuccess={children["next"],children["prev"]}
-	ret.m_eventSuccess={children["next"]}
+	self.m_eventSuccess={children["next"]}
 
-	ret.m_children=children 
-	ret.m_event=event
-	ret.m_time={minute=0,second=0,mesc=0}
+	self.m_children=children 
+	self.m_event=event
+	self.m_time={minute=0,second=0,mesc=0}
 
-	return ret
 end
 
 function NsJigSaw_UiControl:SetLevel(l) 
@@ -54,7 +56,8 @@ end
 
 
 function NsJigSaw_UiControl:updateTime(dt)
-	self.m_time.mesc=self.m_time.mesc+dt
+
+	self.m_time.mesc=self.m_time.mesc+dt*1000
 
 	if self.m_time.mesc >=1000  then 
 		local second=math.floor(self.m_time.mesc/1000)
@@ -194,24 +197,23 @@ end
 
 -- ui control static data --
 
-NsJigSaw_UiControl.ms_font=FontTTF:create(DEFAULT_FONT,32)
-
-
 NsJigSaw_UiControl.ms_layouts={
 	level={
 		onCreate=util.LabelTTFNew,
-		font=NsJigSaw_UiControl.ms_font,
+		fontSize=32,
+		fontName=DEFAULT_FONT,
 		text="Level 1000",
 		pos={x=20,y=GAME_HEIGHT-50},
-		align={h=LabelTTF.ALIGN_H_RIGHT,v=LabelTTF.ALIGN_V_CENTER}
+		anchor={x=0.0,y=0.5},
 	},
 
 	time={
 		onCreate=util.LabelTTFNew,
-		font=NsJigSaw_UiControl.ms_font,
+		fontSize=32,
+		fontName=DEFAULT_FONT,
 		text="Time 00:00",
 		pos={x=250,y=GAME_HEIGHT-50},
-		align={h=LabelTTF.ALIGN_H_RIGHT,v=LabelTTF.ALIGN_V_CENTER}
+		anchor={x=0.0,y=0.5},
 	},
 
 	pause={

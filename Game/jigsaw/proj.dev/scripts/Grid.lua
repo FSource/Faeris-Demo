@@ -1,5 +1,4 @@
-Grid={}
-Grid.__index=Grid
+Grid=f_newclass("Grid")
 
 function Grid:Alloc()
 	local ret={}
