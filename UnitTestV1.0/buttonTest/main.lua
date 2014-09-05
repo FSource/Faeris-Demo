@@ -14,25 +14,40 @@ layer:add(q)
 q:setPosition(100,100)
 
 
-local b1=Button:create()
-b1:setTouchEnabled(true);
+local b1=PressButton:create()
 
-b1_nstate=b1:getNormalState();
-b1_nstate:setTexture("play_up.png")
+b1:setTexture("play_up.png")
 
-print(Button.FLAG_TEXTURE+Button.FLAG_SCALE)
-b1_nstate:setFlag(Button.FLAG_TEXTURE+Button.FLAG_SCALE)
+b1:setTexture(PressButton.STATE_NORMAL,"play_up.png")
+b1:setTexture(PressButton.STATE_PRESS,"play_up.png")
+b1:setTexture(PressButton.STATE_DISABLE,"play_down.png")
 
-b1_pstate=b1:getPressState();
-b1_pstate:setTexture("play_down.png")
-b1_pstate:setScale(Vector3(1.2,1.2,1))
-b1_pstate:setFlag(Button.FLAG_TEXTURE+Button.FLAG_SCALE)
 
-b1:setStateNormal();
+
+
+b1:setScale(PressButton.STATE_PRESS,1.1,1.1,1)
+b1:setRotate(PressButton.STATE_PRESS,0,0,30)
+--b1:setOpacity(PressButton.STATE_PRESS,0.3)
+b1:setColor(PressButton.STATE_PRESS,Color4f(0.5,0.5,0.5,1.0))
+b1:setSize(PressButton.STATE_PRESS,300,200)
+b1:setAnchor(PressButton.STATE_PRESS,0,0)
+
+
+b1:setTweenFlags(PressButton.FLAG_TEXTURE+PressButton.FLAG_SCALE+PressButton.FLAG_OPACITY+PressButton.FLAG_COLOR);
+
+
+--b1:setTweenInfo(PressButton.STATE_ALL,PressButton.STATE_ALL,LinearEase:create(),0.1)
+b1:setTweenInfo(PressButton.STATE_ALL,PressButton.STATE_ALL,LinearEase:create(),0.1)
+
+
 
 layer:add(b1)
 
+
 b1:setPosition(480,320)
+b1:setTouchEnabled(true);
+
+
 
 b1.data={
 	onClick=function(self)
@@ -55,13 +70,13 @@ b1.data={
 		self:pressUp(x,y)
 		print("onPressUp",x,y)
 	end;
-	onPressCancel=function(self,x,y)
-		self:pressCancel(x,y)
-		print("onPressCancel",x,y)
+
+	onCancel=function(self,x,y)
+		print("onCancel")
+		self:cancel()
+		--self:setDisabled(true);
 	end
 }
-
-
 
 
 
