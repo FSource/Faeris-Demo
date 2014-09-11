@@ -76,22 +76,37 @@ function S_CreateScene()
 
 	for k,v in pairs(S_States) do 
 
-		local button=PressButton:createWithDarkStyle("button_bg.png",Color(125,125,125))
+		local button=ToggleButton:createWithDarkStyle("button_bg.png",Color(125,125,125))
 		button:setPosition(start_x,start_y+step_y*i)
 		button:setSize(80,40)
-		button:setColor(PressButton.STATE_NORMAL,Color(0,144,188))
+		button:setColor(ToggleButton.STATE_ON,Color(0,144,188))
 
 		local label=LabelTTF:create("simsun.ttc",20,k)
 
 		button:addChild(label)
 		f_setattrenv(button,{})
 
-		button.onPressDown=function()
+		if k== "State1"  then 
+			button:setToggle(true);
+			focus_button=button
+		else 
+			button:setToggle(false)
+		end
+
+		button.onToggleChanged=function(value)
+
+			if not value then 
+				return 
+			end
+
+			if focus_button == button then 
+				return 
+			end
+
 			dyview:setCurrentView(k)
-			button:setColor(PressButton.STATE_NORMAL,Color(205,73,0))
 
 			if focus_button then 
-				focus_button:setColor(PressButton.STATE_NORMAL,Color(0,144,188))
+				focus_button:setToggle(false)
 			end
 
 			focus_button=button
@@ -99,8 +114,8 @@ function S_CreateScene()
 
 		i=i+1
 		layer:add(button)
-
 		dyview:addView(k,S_CreateView(500,400,v))
+
 	end
 
 

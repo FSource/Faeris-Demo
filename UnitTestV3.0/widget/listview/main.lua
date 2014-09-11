@@ -62,7 +62,6 @@ function S_createListWidget(w,h,i)
 		end
 	})
 
-
 	ret:setScissorEnabled(true)
 	ret:addChild(button)
 
@@ -76,7 +75,7 @@ function S_createListView(w,h)
 	ret:setMargin(20,20,20,20)
 	ret:setListGap(20)
 
-	for i=0,100 do 
+	for i=0,400 do 
 		local l=S_createListWidget(w,math.random(80)+80,i)
 
 		if i%2== 0 then 
@@ -122,7 +121,7 @@ function S_createLayer()
 	f_setattrenv(ret,{
 		onUpdate=function(t,dt)
 			t:update(dt)
-			--print(1/dt)
+			print(1/dt)
 		end
 	})
 
