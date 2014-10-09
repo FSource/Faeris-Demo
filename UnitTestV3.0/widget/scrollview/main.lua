@@ -18,7 +18,7 @@ w=ScrollView:create(900,600)
 
 l:add(w)
 
-w:setEdgeBounceEnabled(false)
+--w:setEdgeBounceEnabled(false)
 w:setScrollMode(ScrollWidget.SCROLL_ALL)
 w:setContentAlign(ScrollWidget.ALIGN_CENTER,ScrollWidget.ALIGN_CENTER);
 --w:setMargin(20,20,20,20)
