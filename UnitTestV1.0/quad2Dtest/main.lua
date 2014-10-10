@@ -16,6 +16,7 @@ q1:setColor(Color(0,100,100));
 q2=Quad2D:create("testorig.jpg")
 q2:setRegionRect(0.3,0.3,0.4,0.4);
 q1:addChild(q2)
+--q2:setRenderMode(Quad2D.MODE_COLOR)
 
 layer:add(q1)
 

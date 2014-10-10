@@ -18,7 +18,7 @@ function S_createListWidget(w,h,i)
 
 	print("color:",c.r,c.g,c.b,c.a)
 
-	local q=ColorQuad2D:create(w,h,c)
+	local q=Quad2D:create(c,w,h)
 	ret:addChild(q)
 	q:setTouchEnabled(true)
 
@@ -87,7 +87,7 @@ function S_createListView(w,h)
 		S_UiWidget=S_UiWidget+1
 	end
 
-	local q=ColorQuad2D:create(w,h,Color(255,0,0,100))
+	local q=Quad2D:create(Color(255,0,0,100),w,h)
 
 	ret:addChild(q)
 	q:setZorder(-1)
