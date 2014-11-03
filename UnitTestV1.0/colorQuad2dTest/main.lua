@@ -1,4 +1,4 @@
-local quad=ColorQuad2D:create(100,100,Color4f.RED)
+local quad=Quad2D:create(Color4f.RED,100,100)
 --[[
 quad.data=
 {

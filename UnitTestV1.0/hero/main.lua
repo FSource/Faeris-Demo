@@ -9,7 +9,7 @@ sprite:setPosition(480-34.60,320-7.03)
 
 role=Sprite2D:create("sprite/hero.fst")
 role:setAnimation("run")
-role:startAnimation(Sprite2D.ANIM_LOOP)
+role:startAnimation(E_AnimPlayMode.LOOP)
 role:setPosition(200,320)
 role:setScale(0.7,0.7,0.7)
 role.data=

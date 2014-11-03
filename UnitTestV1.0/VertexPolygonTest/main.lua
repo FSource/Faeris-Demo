@@ -14,14 +14,14 @@ local vertex={
 local polygon={}
 
 local param={
-	{mode=VertexPolygon.POINTS,color=Color.RED},
-	{mode=VertexPolygon.LINES,color=Color.BLUE},
-	{mode=VertexPolygon.LINE_STRIP,color=Color.GREEN},
+	{mode=E_DrawMode.POINTS,color=Color.RED},
+	{mode=E_DrawMode.LINES,color=Color.BLUE},
+	{mode=E_DrawMode.LINE_STRIP,color=Color.GREEN},
 
-	{mode=VertexPolygon.LINE_LOOP,color=Color(255,255,0)},
-	{mode=VertexPolygon.TRIANGLES,color=Color(255,0,255)},
-	{mode=VertexPolygon.TRIANGLE_FAN,color=Color(0,255,255)},
-	{mode=VertexPolygon.TRIANGLE_STRIP,color=Color(255,125,125)},
+	{mode=E_DrawMode.LINE_LOOP,color=Color(255,255,0)},
+	{mode=E_DrawMode.TRIANGLES,color=Color(255,0,255)},
+	{mode=E_DrawMode.TRIANGLE_FAN,color=Color(0,255,255)},
+	{mode=E_DrawMode.TRIANGLE_STRIP,color=Color(255,125,125)},
 }
 
 
@@ -38,6 +38,7 @@ for k,v in ipairs(param) do
 		p:append(v.x,v.y)
 	end
 
+	print(v.mode)
 	p:setMode(v.mode)
 	p:setColor(v.color)
 

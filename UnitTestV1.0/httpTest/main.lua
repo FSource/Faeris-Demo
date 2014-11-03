@@ -16,7 +16,7 @@ request.data={
 		scene=Scene:create();
 		layer=Layer2D:create()
 		layer:setViewArea(0,0,960,640)
-		quad=ColorQuad2D:create(150,150,Color(255,0,0))
+		quad=Quad2D:create(Color(255,0,0),150,150)
 		quad:setPosition(480,320)
 		layer:add(quad)
 		scene:push(layer)

@@ -5,6 +5,7 @@ sprite:setPosition(480,320)
 --sprite:setColor(Color(255,0,0));
 sprite:setScale(0.5,0.5,1)
 
+sprite:setColor(Color.RED)
 
 sprite.data={
 	onUpdate=function(self,dt)

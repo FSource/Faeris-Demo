@@ -1,16 +1,16 @@
 emitter:{
-	durationTime:10.000000
+	durationTime:10000000.000000
 	durationTimeVar:0.000000
-	emitSpeed:100
-	maxParticleNu:1000000
+	emitSpeed:1000
+	maxParticleNu:100000000
 }
 particle:{
-	lifeTime:2.000000
+	lifeTime:12.000000
 	lifeTimeVar:0.500000
-	startSize:1.000000
-	startSizeVar:0.300000
-	endSize:1.000000
-	endSizeVar:0.300000
+	startSize:64
+	startSizeVar:20
+	endSize:64
+	endSizeVar:20
 	startColor:[193,63,30,255]
 	startColorVar:[0,0,0,0]
 	endColor:[0,0,0,255]

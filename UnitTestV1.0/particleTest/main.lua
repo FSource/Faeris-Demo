@@ -59,6 +59,7 @@ layer:add(quad)
 
 layer.data={}
 layer.onUpdate=function(self,dt)
+	print(dt)
 	self:update(dt)
 	print(particle:getParticleNu())
 end 

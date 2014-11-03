@@ -5,7 +5,7 @@ local TEXT_ID=1
 function S_CreatePageItem(w,h)
 
 	local page=UiWidget:create(w,h)
-	local q=ColorQuad2D:create(w,h,Color(math.random(255),math.random(255),math.random(255)));
+	local q=Quad2D:create(Color(math.random(255),math.random(255),math.random(255)),w,h);
 
 
 	--page:setScissorEnabled(false);
@@ -30,7 +30,7 @@ function S_CreatePageItem(w,h)
 
 		for j=0,2 do 
 			local c= Color(math.random(255),math.random(255),math.random(255))
-			local qt=ColorQuad2D:create(pw,ph,c)
+			local qt=Quad2D:create(c,pw,ph)
 			f_setattrenv(qt,{})
 			qt:setTouchEnabled(true)
 
@@ -70,7 +70,7 @@ function S_CreatePageView(w, h)
 
 	local ret=PageView:create(w,h);
 
-	local q=ColorQuad2D:create(w,h,Color(100,100,100))
+	local q=Quad2D:create(Color(100,100,100),w,h)
 	q:setZorder(-1)
 	ret:addChild(q)
 

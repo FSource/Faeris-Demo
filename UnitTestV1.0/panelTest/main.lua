@@ -36,13 +36,13 @@ local width,height=300,300
 local panel=Panel:create(width,height)
 
 
-local c_quad_middle=ColorQuad2D:create(Rect2D(-width/2,-height/2,width,height),Color(255,255,0,125));
+local c_quad_middle=Quad2D:create(Color(255,255,0,125),Rect2D(-width/2,-height/2,width,height));
 
 local width,height=150,150
-local c_quad_small=ColorQuad2D:create(Rect2D(-width/2,-height/2,width,height),Color(0,255,0,125));
+local c_quad_small=Quad2D:create(Color(0,255,0,125),Rect2D(-width/2,-height/2,width,height));
 
 local width,height=600,600
-local c_quad_big=ColorQuad2D:create(Rect2D(-width/2,-height/2,width,height),Color(0,0,255,125));
+local c_quad_big=Quad2D:create(Color(0,0,255,125),Rect2D(-width/2,-height/2,width,height));
 
 
 

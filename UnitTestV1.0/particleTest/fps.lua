@@ -5,8 +5,8 @@ if g_fps then
 end
 
 local layer=Layer2D:create()
-local font=FontTTF:create("simsun.ttc",40)
-local label=LabelTTF:create("FPS:0",font)
+local label=LabelTTF:create("simsun.ttc",40,"FPS:0")
+label:setColor(Color.RED)
 label:setPosition(W_Width/2 - 80,50)
 layer:setViewArea(0,0,W_Width,W_Height)
 layer:add(label)
@@ -33,9 +33,15 @@ scheduler_target.data={
 			self.m_count=0
 		end
 
+		if share.renderDevice then 
 
-		local render=share:render();
-		self.m_layer:draw(render)
+			local rd=share:renderDevice();
+			self.m_layer:draw(rd)
+		else 
+			local rd=share:render();
+			self.m_layer:draw(rd)
+		end
+
 	end;
 	m_label=label,
 	m_layer=layer;

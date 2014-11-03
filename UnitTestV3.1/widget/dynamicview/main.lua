@@ -24,7 +24,7 @@ function S_CreateView(w,h,text)
 
 	ret:setSize(w,h)
 
-	local q=ColorQuad2D:create(w,h,Color(math.random(255),math.random(255),math.random(255),100))
+	local q=Quad2D:create(Color(math.random(255),math.random(255),math.random(255),100),w,h)
 	ret:addChild(q)
 
 
@@ -62,7 +62,7 @@ function S_CreateScene()
 	local dyview=S_CreateDynamicView(600,500)
 	dyview:setMargin(20,20,20,20)
 
-	local quad=ColorQuad2D:create(600,500,Color(100,100,0,100))
+	local quad=Quad2D:create(Color(100,100,0,100),600,500)
 
 	dyview:addChild(quad)
 	dyview:setPosition(960/2,640/2)

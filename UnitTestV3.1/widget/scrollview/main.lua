@@ -25,7 +25,7 @@ w:setContentAlign(ScrollWidget.ALIGN_CENTER,ScrollWidget.ALIGN_CENTER);
 
 w:setPosition(480,320)
 
-cq=ColorQuad2D:create(900,600,Color(255,0,0,100))
+cq=Quad2D:create(Color(255,0,0,100),900,600)
 w:addChild(cq)
 
 w_ui=UiWidget:create(900,1200)

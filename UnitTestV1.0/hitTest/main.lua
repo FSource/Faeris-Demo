@@ -1,6 +1,5 @@
 share:scheduler():scheduleWithMiliSecond(true)
 local director =share:director();
-local render=share:render()
 local scheduler=share:scheduler()
 scheduler:setFps(500)
 
@@ -13,7 +12,6 @@ layer:setViewArea(0,0,1024,800)
 
 
 local quad2d= Quad2D:create("grass.png",Rect2D(-100,-100,200,200))
-quad2d:addRef()
 quad2d:setPosition(500,400,0)
 quad2d.data={
 	onUpdate=function(self,dt)
@@ -21,9 +19,8 @@ quad2d.data={
 	end 
 }
 
-local c_quad=ColorQuad2D:create(Rect2D(-100,-100,200,200),Color.RED)
+local c_quad=Quad2D:create(Color.RED,Rect2D(-100,-100,200,200))
 c_quad:setPosition(300,-300,0);
-c_quad:setVertexColor(Color.WHITE,ColorQuad2D.VERTEX_A)
 
 
 
@@ -104,8 +101,6 @@ scene:push(layer)
 director:run(scene);
 
 
-quad2d:detach()
-quad2d:decRef()
 
 
 
