@@ -29,7 +29,7 @@ cq=Quad2D:create(Color(255,0,0,100),900,600)
 w:addChild(cq)
 
 w_ui=UiWidget:create(900,1200)
-w_ui:setRotateZ(30)
+--w_ui:setRotateZ(30)
 --w_ui:setScale(0.2,0.2,1)
 
 cq=Quad2D:create("floor-dungeon-entrance.png",900,1200);

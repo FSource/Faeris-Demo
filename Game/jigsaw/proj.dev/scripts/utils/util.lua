@@ -33,7 +33,7 @@ function util.QuadNew(param)
 			ret:setZorder(v)
 		end
 	end 
-	ret.data={m_param=param}
+	ret.__fdata={m_param=param}
 	return ret
 end
 
@@ -54,7 +54,7 @@ function util.LabelTTFNew(param)
 			ret:setAnchor(v.x,v.y)
 		end
 	end 
-	ret.data={m_param=param}
+	ret.__fdata={m_param=param}
 	return ret
 end
 

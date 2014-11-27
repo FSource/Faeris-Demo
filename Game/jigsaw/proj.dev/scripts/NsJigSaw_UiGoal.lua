@@ -26,7 +26,7 @@ function NsJigSaw_UiGoal:Init()
 			grid:Set(i,j,u)
 		end
 	end
-	local color_quad=ColorQuad2D:create(Rect2D(0,0,GAME_WIDTH,GAME_HEIGHT),Color(155,155,155,155))
+	local color_quad=Quad2D:create(Color(155,155,155,155),Rect2D(0,0,GAME_WIDTH,GAME_HEIGHT))
 	color_quad:setZorder(-1)
 
 	self:add(color_quad)

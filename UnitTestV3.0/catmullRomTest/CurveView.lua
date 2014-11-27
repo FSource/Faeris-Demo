@@ -28,7 +28,7 @@ function CatmullRomCurveView:Init()
 	self.m_catmullRomCurver=CatmullRomCurve3:create()
 
 	self.m_vertexPolygon=VertexPolygon:create()
-	self.m_vertexPolygon:setMode(VertexPolygon.LINE_STRIP)
+	self.m_vertexPolygon:setMode(E_DrawMode.LINE_STRIP)
 	self.m_vertexPolygon:setColor(Color.RED)
 
 	self.m_mainPoint={}
@@ -54,7 +54,7 @@ function CatmullRomCurveView:InitAxis()
 	axis:append(0,-320)
 	axis:append(0,320)
 	
-	axis:setMode(VertexPolygon.LINES)
+	axis:setMode(E_DrawMode.LINES)
 
 	self:add(axis)
 
@@ -82,7 +82,7 @@ function CatmullRomCurveView:CalPoint()
 		p:append(v.x+size,v.y-size,0)
 		p:append(v.x+size,v.y+size,0)
 		p:append(v.x-size,v.y+size,0)
-		p:setMode(VertexPolygon.LINE_LOOP)
+		p:setMode(E_DrawMode.LINE_LOOP)
 		p:setColor(Color.BLUE)
 		self:add(p)
 		table.insert(self.m_mainPoint,p)
@@ -101,7 +101,7 @@ end
 
 function CatmullRomCurveView:InitMoveObject(dt)
 
-	self.m_moveObject=ColorQuad2D:create(30,30,Color.GREEN)
+	self.m_moveObject=Quad2D:create(Color.GREEN,30,30)
 	self:add(self.m_moveObject)
 
 end

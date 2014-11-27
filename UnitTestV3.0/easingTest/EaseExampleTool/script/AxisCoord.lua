@@ -30,21 +30,21 @@ function AxisCoord:InitAxis()
 	axis_x:append(self.m_width*(-self.m_center),0)
 	axis_x:append(self.m_width*(1-self.m_center),0)
 	axis_x:setColor(Color(102,45,145))
-	axis_x:setMode(VertexPolygon.LINES)
+	axis_x:setMode(E_DrawMode.LINES)
 
 	local axis_y=VertexPolygon:create()
 
 	axis_y:append(0,self.m_height*(-self.m_center))
 	axis_y:append(0,self.m_height*(1-self.m_center))
 	axis_y:setColor(Color(0,134,65))
-	axis_y:setMode(VertexPolygon.LINES)
+	axis_y:setMode(E_DrawMode.LINES)
 
 
 	self:addChild(axis_x)
 	self:addChild(axis_y)
 
 	local curve=VertexPolygon:create()
-	curve:setMode(VertexPolygon.LINE_STRIP)
+	curve:setMode(E_DrawMode.LINE_STRIP)
 	curve:setColor(Color(188,28,72))
 	self:addChild(curve)
 	self.m_curve=curve

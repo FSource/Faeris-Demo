@@ -2,7 +2,7 @@ MovePanel=libfs.Class("MovePanel")
 
 function MovePanel:New(cfg)
 
-	local ret=ColorQuad2D:create(1000,400,Color(27,82,144))
+	local ret=Quad2D:create(Color(27,82,144),1000,400)
 	libfs.Extends(ret,self)
 	ret:Init(cfg)
 	return ret
@@ -30,7 +30,7 @@ function MovePanel:InitMoveQuad()
 
 
 	for i=1,4 do  
-		local bg=ColorQuad2D:create(width,height,Color(64,158,255))
+		local bg=Quad2D:create(Color(64,158,255),width,height)
 		bg:setPosition(start_x,start_y+step_y*(i-1))
 		bg:setAnchor(0,0.5)
 		self:addChild(bg)
@@ -38,7 +38,7 @@ function MovePanel:InitMoveQuad()
 		local quad_start_x=height/2
 		local quad_end_x=width-height/2
 
-		local quad=ColorQuad2D:create(height,height,Color(253,125,184))
+		local quad=Quad2D:create(Color(253,125,184),height,height)
 		bg:addChild(quad)
 		quad.data={}
 

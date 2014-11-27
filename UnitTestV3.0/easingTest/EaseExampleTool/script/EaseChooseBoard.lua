@@ -4,7 +4,7 @@ S_NormalColor=Color(0,114,118)
 S_PressColor=Color(205,73,0)
 
 function EaseChooseBoard:New(cfg)
-	local ret=ColorQuad2D:create(200,200,Color(151,151,151,200))
+	local ret=Quad2D:create(Color(151,151,151,200),200,200)
 	libfs.Extends(ret,self)
 	ret:Init(cfg)
 	return ret

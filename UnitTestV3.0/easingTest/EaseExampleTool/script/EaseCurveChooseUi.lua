@@ -25,7 +25,7 @@ function EaseCurveChooseUi:Init()
 end
 
 function EaseCurveChooseUi:InitBg()
-	local c=ColorQuad2D:create(W_WIDTH,W_HEIGHT,Color(51,51,51,220))
+	local c=Quad2D:create(Color(51,51,51,220),W_WIDTH,W_HEIGHT)
 	c:setAnchor(0,0)
 	self:add(c)
 end

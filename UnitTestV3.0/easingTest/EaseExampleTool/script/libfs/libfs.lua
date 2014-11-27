@@ -181,10 +181,10 @@ function libfs.Extends(v,f)
 	if type(v) == "table" then 
 		setmetatable(v,fclass)
 	else 
-		if not v.data then 
-			v.data={}
+		if not v.__fdata then 
+			v.__fdata={}
 		end
-		setmetatable(v.data,fclass)
+		setmetatable(v.__fdata,fclass)
 	end
 end
 

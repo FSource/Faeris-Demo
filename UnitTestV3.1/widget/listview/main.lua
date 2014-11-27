@@ -75,7 +75,7 @@ function S_createListView(w,h)
 	ret:setMargin(20,20,20,20)
 	ret:setListGap(20)
 
-	for i=0,2000 do 
+	for i=0,200 do 
 
 		local l=S_createListWidget(w,math.random(80)+80,i)
 

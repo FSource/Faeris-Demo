@@ -53,7 +53,7 @@ function CurveHListPanel:InitLine(cfg)
 	outline:append(0,cfg.height)
 	outline:append(W_WIDTH,cfg.height)
 	outline:setColor(Color.BLACK)
-	outline:setMode(VertexPolygon.LINES)
+	outline:setMode(E_DrawMode.LINES)
 
 	self:addChild(outline)
 

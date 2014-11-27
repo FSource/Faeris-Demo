@@ -80,7 +80,6 @@ function S_CreatePageView(w, h)
 end
 
 
-
 function S_CreateScene()
 
 	local layer=Layer2D:create()
@@ -93,6 +92,10 @@ function S_CreateScene()
 		layer:update(dt)
 		--print(1/dt)
 	end
+
+
+
+
 
 
 
@@ -112,6 +115,28 @@ function S_CreateScene()
 
 	pgview:setPosition(w/2,640/2+(640-h)/2-10)
 	layer:add(pgview)
+
+	local prev_button=PressButton:createWithDarkStyle("button_bg.png",Color(0,144,188))
+	prev_button:setSize(100,40)
+	prev_button:setPosition(480-100,40);
+	prev_button:setColor(PressButton.STATE_NORMAL,Color(205,73,0))
+	local l_label=LabelTTF:create("simsun.ttc",20,"PrevPage");
+	prev_button:addChild(l_label);
+	prev_button.onClick=function()
+		pgview:slideToPrevPage();
+	end
+	layer:add(prev_button)
+
+	local next_button=PressButton:createWithDarkStyle("button_bg.png",Color(0,144,188))
+	next_button:setPosition(480+100,40);
+	next_button:setSize(100,40)
+	next_button:setColor(PressButton.STATE_NORMAL,Color(205,73,0))
+	local l_label=LabelTTF:create("simsun.ttc",20,"NextPage");
+	next_button:addChild(l_label);
+	next_button.onClick=function()
+		pgview:slideToNextPage();
+	end
+	layer:add(next_button)
 
 	return scene
 
