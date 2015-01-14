@@ -4,14 +4,11 @@ scene=Scene:create()
 layer=Layer2D:create()
 layer:setViewArea(0,0,960,640)
 
-font=FontTTF:create("simsun.ttc",30)
-label=LabelTTF:create("Please Press Keybord",font)
+label=LabelTTF:create("simsun.ttc",30,"Please Press Keybord")
 label:setPosition(480,320)
-label:setAlign(LabelTTF.ALIGN_H_CENTER,LabelTTF.ALIGN_V_CENTER)
 
-label1=LabelTTF:create("FPS:0",font)
+label1=LabelTTF:create("simsun.ttc",30,"FPS:0")
 label1:setPosition(60,600)
-label1:setAlign(LabelTTF.ALIGN_H_CENTER,LabelTTF.ALIGN_V_CENTER)
 
 layer:add(label)
 layer:add(label1)
@@ -27,7 +24,7 @@ cur_string="Please Press Keybord"
 g_time=0
 fps=0
 
-scene.data={
+scene.__fdata={
 	onKeypadEvent=function(self,t,code)
 		if t==KeypadEvent.KEYPAD_DOWN then 
 			return 

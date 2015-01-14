@@ -7,12 +7,9 @@ scene:push(layer)
 q1=Quad2D:create("pal.png",960,640)
 
 q1:setPosition(480,320);
+q1:setProgramSource("julia.fshader")
 
 
-local shader=share:programMgr():load("shader.vert","shader.frag")
-
-print(shader)
-q1:setShader(shader)
 
 q1.data={}
 
@@ -26,9 +23,8 @@ end
 scale=1
 seed={x=0.358,y=0.428}
 
-q1.onDraw=function(q,render)
+q1.onDraw1=function(q,render)
 
-	render:setProgram(shader)
 	local u_scale=render:getUniformLocation("scale")
 	local u_resolution=render:getUniformLocation("resolution")
 	local u_seed=render:getUniformLocation("c")

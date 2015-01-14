@@ -12,7 +12,7 @@ role:setAnimation("run")
 role:startAnimation(E_AnimPlayMode.LOOP)
 role:setPosition(200,320)
 role:setScale(0.7,0.7,0.7)
-role.data=
+role.__fdata=
 {
 	moveSpreed=100,
 	targetPosX=nil,
@@ -54,16 +54,16 @@ role.data=
 
 
 local function role_move(r,x,y)
-	r.data.targetPosX=x
-	r.data.targetPosY=y
+	r.targetPosX=x
+	r.targetPosY=y
 	local ox,oy=r:getPosition()
 	local d=math.sqrt((x-ox)*(x-ox)+(y-oy)*(y-oy))
-	local time=d/r.data.moveSpreed
+	local time=d/r.moveSpreed
 	--print("time:"..time)
-	r.data.movex=(x-ox)/time
-	r.data.movey=(y-oy)/time
-	r.data.distancex=(x-ox)
-	r.data.distancey=(y-oy)
+	r.movex=(x-ox)/time
+	r.movey=(y-oy)/time
+	r.distancex=(x-ox)
+	r.distancey=(y-oy)
 
 	--print("r.dara.movex:"..r.data.movex.. " r.data.movey:"..r.data.movey)
 
@@ -78,20 +78,22 @@ back_layer:setViewArea(0,0,960,640)
 back_layer:setViewArea(0,0,960,640)
 back_layer:setTouchEnabled(true)
 
-back_layer.data=
+back_layer.__fdata=
 {
 	viewareaX=0,
 	viewareaY=0,
 	onTouchBegin=function(self,x,y)
-		self.data.moveTimes=0
+		self.moveTimes=0
 		print("on touch begin")
-		self.data.lastPosx=x
-		self.data.lastPosy=y
+		self.lastPosx=x
+		self.lastPosy=y
+		return true
 	end,
 	onTouchMove=function(self,x,y)
-		local data=self.data
+		print("touchMove")
+		local data=self
 		data.moveTimes=data.moveTimes+1
-		if self.data.moveTimes >=3 then 
+		if self.moveTimes >=3 then 
 			local dx=(x-data.lastPosx)*960
 			local dy=(y-data.lastPosy)*640
 			print("dx:"..dx.." dy:"..dy)
@@ -104,8 +106,9 @@ back_layer.data=
 	end,
 
 	onTouchEnd=function(self,x,y)
+		print("touchEnd")
 		x,y =self:toLayerCoord(x,y)
-		if self.data.moveTimes < 3 then 
+		if self.moveTimes < 3 then 
 			role_move(role,x,y)
 		end
 	end

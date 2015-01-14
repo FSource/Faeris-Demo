@@ -19,7 +19,7 @@ function S_CreateView(w,h,text)
 	local label=LabelTTF:create("simsun.ttc",20,text)
 	label:setBoundSize(w,h);
 
-	local w,h=label:getTextSize()
+	local w,h=label:getTextWidth(),label:getTextHeight()
 
 
 	ret:setSize(w,h)
@@ -62,10 +62,10 @@ function S_CreateScene()
 	local dyview=S_CreateDynamicView(600,500)
 	dyview:setMargin(20,20,20,20)
 
-	local quad=Quad2D:create(Color(100,100,0,100),600,500)
+	dyview:setBgColor(Color(100,100,0,100));
+	dyview:setBgEnabled(true)
+	dyview:setPosition(480,320)
 
-	dyview:addChild(quad)
-	dyview:setPosition(960/2,640/2)
 
 	local start_y= 500 
 	local step_y=-80
@@ -76,7 +76,7 @@ function S_CreateScene()
 
 	for k,v in pairs(S_States) do 
 
-		local button=ToggleButton:createWithDarkStyle("button_bg.png",Color(125,125,125))
+		local button=ToggleButton:createWithColorStyle("button_bg.png",Color.WHITE,Color(125,125,125))
 		button:setPosition(start_x,start_y+step_y*i)
 		button:setSize(80,40)
 		button:setColor(ToggleButton.STATE_ON,Color(0,144,188))
@@ -119,39 +119,39 @@ function S_CreateScene()
 	end
 
 
-	local alignh=DynamicView.ALIGN_CENTER
-	local alignv=DynamicView.ALIGN_CENTER 
+	local alignh=E_AlignH.CENTER
+	local alignv=E_AlignV.CENTER 
 
 	local alignh_map={
-		[DynamicView.ALIGN_LEFT]={
-			align=DynamicView.ALIGN_CENTER,
+		[E_AlignH.LEFT]={
+			align=E_AlignH.CENTER,
 			text="X:CENTER",
 		},
 
-		[DynamicView.ALIGN_CENTER]={
-			align=DynamicView.ALIGN_RIGHT,
+		[E_AlignH.CENTER]={
+			align=E_AlignH.RIGHT,
 			text="X:RIGHT",
 		},
 
-		[DynamicView.ALIGN_RIGHT]={
-			align=DynamicView.ALIGN_LEFT,
+		[E_AlignH.RIGHT]={
+			align=E_AlignH.LEFT,
 			text="X:LEFT",
 		}
 	}
 	
 	local alignv_map={
-		[DynamicView.ALIGN_TOP]={
-			align=DynamicView.ALIGN_CENTER,
+		[E_AlignV.TOP]={
+			align=E_AlignV.CENTER,
 			text="Y:CENTER"
 		},
 
-		[DynamicView.ALIGN_CENTER]={
-			align=DynamicView.ALIGN_BOTTOM,
+		[E_AlignV.CENTER]={
+			align=E_AlignV.BOTTOM,
 			text="Y:BOTTOM",
 		},
 
-		[DynamicView.ALIGN_BOTTOM]={
-			align=DynamicView.ALIGN_TOP,
+		[E_AlignV.BOTTOM]={
+			align=E_AlignV.TOP,
 			text="Y:TOP",
 		}
 	}

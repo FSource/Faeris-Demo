@@ -19,18 +19,14 @@ w=ScrollView:create(900,600)
 l:add(w)
 
 --w:setEdgeBounceEnabled(false)
-w:setScrollMode(ScrollWidget.SCROLL_ALL)
-w:setContentAlign(ScrollWidget.ALIGN_CENTER,ScrollWidget.ALIGN_CENTER);
+w:setScrollMode(E_ScrollDirection.ALL)
+w:setContentAlign(E_AlignH.CENTER,E_AlignV.CENTER);
 --w:setMargin(20,20,20,20)
 
 w:setPosition(480,320)
 
-cq=Quad2D:create(Color(255,0,0,100),900,600)
-w:addChild(cq)
 
 w_ui=UiWidget:create(900,1200)
---w_ui:setRotateZ(30)
---w_ui:setScale(0.2,0.2,1)
 
 cq=Quad2D:create("floor-dungeon-entrance.png",900,1200);
 

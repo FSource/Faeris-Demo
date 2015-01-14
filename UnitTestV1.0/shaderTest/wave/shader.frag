@@ -2,7 +2,6 @@
 precision lowp float;                  
 #endif                                
 #
-varying vec4 v_fragmentColor; 		
 uniform float u_time;
 uniform vec2 u_resolution;
 

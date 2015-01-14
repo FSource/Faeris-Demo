@@ -1,13 +1,13 @@
-GameScene = {
+GameScene = f_newclass();
 
-}
-GameScene.__index = GameScene;
 
 function GameScene:New()
 	local scene = Scene:create();
-	scene.data = {};
-	setmetatable(scene.data, self)
+
+	f_extends(scene,self)
+
 	scene:Init();
+
 	return scene
 end
 

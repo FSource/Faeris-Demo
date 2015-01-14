@@ -2,7 +2,8 @@ GAME_WIDTH=960
 GAME_HEIGHT=640
 
 tips={
-	[0]="\tAttempt doesn't necessarily bring success, but giving up definitely leads to failure.\n\n\t努力不一定成功，但放弃一定失败！",
+	[0]="Hello World Anchor(0,0)",
+	"\tAttempt doesn't necessarily bring success, but giving up definitely leads to failure.\n\n\t努力不一定成功，但放弃一定失败！",
 	"\tThe best preparation for tomorrow is doing your best today.\n\n\t对明天最好的准备就是今天做到最好。",
 	"\tI don't care about other questions and I just try to be myself.\n\n\t我不在乎别人的质疑，我只会做好自己",
 	"\tYou are already naked. There is no reason not to follow your heart.\n\n\t你已经一无所有，没有什么道理不顺心而为。(乔布斯)",

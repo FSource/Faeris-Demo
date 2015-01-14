@@ -20,7 +20,7 @@ layer:setSortMode(Layer2D.SORT_ORDER_Z)
 
 ---[[
 -- test new line --
-local simsun_lable20=LabelTTF:create("simsun.ttc",20,"\tMyName Is ChenLin \nBut I Have A Good Work \nI Love The World\n\nSo Many Things To Do")
+local simsun_lable20=LabelTTF:create("test1.TTF",20,"\tMyName Is ChenLin \nBut I Have A Good Work \nI Love The World\n\nSo Many Things To Do")
 simsun_lable20:setColor(Color.GREEN)
 simsun_lable20:setPosition(130,430,0)
 

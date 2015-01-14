@@ -5,11 +5,7 @@ local TEXT_ID=1
 function S_CreatePageItem(w,h)
 
 	local page=UiWidget:create(w,h)
-	local q=Quad2D:create(Color(math.random(255),math.random(255),math.random(255)),w,h);
-
-
-	--page:setScissorEnabled(false);
-	--page:addChild(q)
+	page:setBgEnabled(true)
 
 	local pw=250 
 	local ph=120
@@ -70,9 +66,8 @@ function S_CreatePageView(w, h)
 
 	local ret=PageView:create(w,h);
 
-	local q=Quad2D:create(Color(100,100,100),w,h)
-	q:setZorder(-1)
-	ret:addChild(q)
+	ret:setBgColor( Color(100,100,100))
+	ret:setBgEnabled(true)
 
 	return ret
 
@@ -108,7 +103,11 @@ function S_CreateScene()
 
 	local pgview=S_CreatePageView(w,h)
 
-	for i=1,100 do 
+	pgview.onPageIndexChanged=function(_,old,new)
+		print(old,new)
+	end
+
+	for i=1,10 do 
 		local page=S_CreatePageItem(w-30,h-30)
 		pgview:addPage(page)
 	end

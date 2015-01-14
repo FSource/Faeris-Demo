@@ -33,7 +33,7 @@ b1:setSize(PressButton.STATE_PRESS,300,200)
 b1:setAnchor(PressButton.STATE_PRESS,0,0)
 
 
-b1:setTweenFlags(PressButton.FLAG_TEXTURE+PressButton.FLAG_SCALE+PressButton.FLAG_OPACITY+PressButton.FLAG_COLOR);
+b1:setTweenFlags(E_ButtonTweenFlag.TEXTURE+E_ButtonTweenFlag.SCALE+E_ButtonTweenFlag.OPACITY+E_ButtonTweenFlag.COLOR);
 
 
 --b1:setTweenInfo(PressButton.STATE_ALL,PressButton.STATE_ALL,LinearEase:create(),0.1)
@@ -49,7 +49,7 @@ b1:setTouchEnabled(true);
 
 
 
-b1.data={
+b1.__fdata={
 	onClick=function(self)
 		self:click()
 		print("onClick")
@@ -75,7 +75,12 @@ b1.data={
 		print("onCancel")
 		self:cancel()
 		--self:setDisabled(true);
+	end,
+	onTouchEnd=function(self,x,y)
+		print("onTouchEnd")
+		self:touchEnd(x,y)
 	end
+
 }
 
 
