@@ -1,4 +1,5 @@
-
+Entity=Entity2D
+Panel=UiWidget
 g_DefaultFontName="font/DroidSansFallback.ttf"
 W_WIDTH=1200 
 W_HEIGHT=800 

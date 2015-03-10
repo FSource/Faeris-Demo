@@ -3,8 +3,8 @@ SizeAction=f_newclass();
 function SizeAction:New(cfg)
 	local ret=Action:create()
 	f_extends(ret,self)
-
 	ret:Init(cfg)
+
 	return ret
 
 end

@@ -18,56 +18,15 @@ w=ScrollView:create(900,600)
 
 l:add(w)
 
---w:setEdgeBounceEnabled(false)
-w:setScrollMode(E_ScrollDirection.ALL)
 w:setContentAlign(E_AlignH.CENTER,E_AlignV.CENTER);
---w:setMargin(20,20,20,20)
+
 
 w:setPosition(480,320)
 
+w_ui=UiWidget:create(600,600)
 
-w_ui=UiWidget:create(900,1200)
-
-cq=Quad2D:create("floor-dungeon-entrance.png",900,1200);
-
-
---[[
-cq=ColorQuad2D:create(300,1200,Color.WHITE)
-cq:setVertexColor(Color4f(1.0,0.0,0.0,1.0),ColorQuad2D.VERTEX_A);
-cq:setVertexColor(Color4f(0.0,1.0,0.0,1.0),ColorQuad2D.VERTEX_B);
-cq:setVertexColor(Color4f(0.0,0.0,1.0,1.0),ColorQuad2D.VERTEX_C);
-cq:setVertexColor(Color4f(1.0,0.0,1.0,1.0),ColorQuad2D.VERTEX_D);
---]]
-cq:setOpacity(0.9)
-w_ui:addChild(cq)
+w_ui:setBgTexture("floor-dungeon-entrance.png")
+w_ui:setBgEnabled(true)
 
 w:setContentWidget(w_ui)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -12,7 +12,7 @@ local S_ModeMap={
 	}
 
 function CurveWidget:New()
-	local ret=Entity:create()
+	local ret=Entity2D:create()
 	libfs.Extends(ret,self)
 	ret:Init()
 	return ret
